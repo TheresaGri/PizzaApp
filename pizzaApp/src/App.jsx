@@ -1,5 +1,8 @@
+
 import { useEffect, useState } from "react";
 import "./App.css";
+import Header from './components/header';
+import banner from './assets/banner.webp';
 
 async function getPizzas() {
   const url = "http://localhost:3000/api/pizzas";
@@ -20,12 +23,14 @@ useEffect(() => {
 
 },[pizzas]);
   return (
-    <div className="App">
+    <div className="homepage">
       {pizzas.map((pizza ) => (
         <li>{pizza.name}</li>
       )
       
       )}
+      <Header> </Header>
+			<img id='restaurant-banner' src={banner}></img>
     </div>
   );
 }
