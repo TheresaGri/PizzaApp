@@ -1,13 +1,14 @@
-
 import { useEffect, useState } from "react";
-import { getPizzas } from "./data/data";
+import { getPizzaByName, getPizzas } from "./data/data";
 import "./App.css";
-import Header from './components/header';
-import banner from './assets/banner.webp';
-
+import Header from "./components/Header";
+import banner from "./assets/banner.webp";
+import Filter from "./components/Filter";
 
 function App() {
   const [pizzas, setPizzas] = useState([]);
+  const [name, setName] = useState("");
+  const [filteredPizza, setFilteredPizza] = useState([]);
 
   useEffect(() => {
     async function loadPizzas() {
@@ -17,13 +18,34 @@ function App() {
     loadPizzas();
   }, []);
 
+  function filterPizzas(event) {
+    setName(event.target.value);
+  }
+
+  useEffect(()=> {
+    async function loadFilteredPizzas(name) {
+      let data = await getPizzaByName(name);
+      setFilteredPizza(data)
+    }
+    loadFilteredPizzas(name);
+
+  },[name])
+
   return (
     <div className="homepage">
-      {pizzas.map((pizza) => (
-        <li>{pizza.name}</li>
-      ))}
-      <Header> </Header>
-			<img id='restaurant-banner' src={banner}></img>
+      <Header onPress={() => displayPizzas()}></Header>
+      <Filter name={name} onChange={filterPizzas}></Filter>
+      <div>
+        {pizzas.map((pizza) => (
+          <li key={pizza.id}>{pizza.name}</li>
+        ))}
+      </div>
+      <div>
+        {filteredPizza.map((pizza) => (
+          <li>{pizza.name}</li>
+        ))}
+      </div>
+      <img id="restaurant-banner" src={banner}></img>
     </div>
   );
 }
