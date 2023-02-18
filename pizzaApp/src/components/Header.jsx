@@ -5,7 +5,7 @@ export default function Header() {
 	return (
 		<>
 			<div id='header'>
-				<div className='header-div' id='header-home'>
+				<div className='header-div' id='header-home' >
 					Home
 				</div>
 				<div className='header-div' id='header-menu'>
