@@ -1,0 +1,17 @@
+.bubble {
+	left: 20px;
+	position: absolute;
+	height: 2em;
+	width: 2em;
+	background-color: gold;
+	border-radius: 1rem;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.badge-container {
+	position: relative;
+	display: flex;
+}
