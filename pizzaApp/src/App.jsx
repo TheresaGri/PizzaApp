@@ -4,28 +4,29 @@ import "./App.css";
 async function getPizzas() {
   const url = "http://localhost:3000/api/pizzas";
   const res = await fetch(url);
-  const data =await  res.json();
+  const data = await res.json();
   return data;
 }
 
 function App() {
-  const [pizzas, setPizzas] = useState(null);
+  const [pizzas, setPizzas] = useState([]);
 
-useEffect(() => {
-  async function showPizzas()  {
+  // useEffect(() => {
+
+  //   }
+  async function showPizzas() {
     let data = await getPizzas();
-    setPizzas(data)
+    setPizzas(data);
+    showPizzas();
+    // }, [pizzas]);
   }
-  console.log(pizzas);
+  showPizzas();
 
-},[pizzas]);
   return (
     <div className="App">
-      {pizzas.map((pizza ) => (
+      {pizzas.map((pizza) => (
         <li>{pizza.name}</li>
-      )
-      
-      )}
+      ))}
     </div>
   );
 }
