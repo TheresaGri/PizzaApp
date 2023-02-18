@@ -1,0 +1,13 @@
+.homepage {
+	display: flex;
+	width: 100vw;
+	height: 200vh;
+	justify-content: center;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+#restaurant-banner {
+	width: 100vw;
+	height: 40%;
+}

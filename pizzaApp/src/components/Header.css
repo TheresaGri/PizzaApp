@@ -1,0 +1,15 @@
+#header {
+	display: flex;
+	width: 50%;
+	justify-content: center;
+	align-items: center;
+	height: 10%;
+}
+
+.header-div {
+	width: 20%;
+}
+
+#shopping-cart {
+	font-size: 3rem;
+}
