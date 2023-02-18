@@ -19,7 +19,7 @@ function App() {
 			setPizzas(data);
 		}
 		console.log(pizzas);
-	}, [pizzas]);
+	}, []);
 	return (
 		<>
 			<div className='homepage'>
