@@ -1,3 +1,3 @@
-export default function Filter({ name,placeholder, onChange }) {
-  return <input value={name} placeholder={placeholder} onChange={onChange} />;
+export default function Filter({ value,placeholder, onChange }) {
+  return <input name={value} placeholder={placeholder} onChange={onChange} />;
 }

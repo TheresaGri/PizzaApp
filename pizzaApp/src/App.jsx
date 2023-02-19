@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { getPizzaByNamePriceAndAllergen } from "./data/data";
@@ -53,17 +52,17 @@ function App() {
         </div>
       </div>
       <Filter
-        name={name}
+        value={name}
         placeholder={"Search pizzas by name"}
         onChange={filterPizzasByName}
       ></Filter>
       <Filter
-        name={maxPrice}
+        value={maxPrice}
         placeholder={"Search pizzas by price"}
         onChange={filterPizzasByPrice}
       ></Filter>
       <Filter
-        name={allergen}
+        value={allergen}
         placeholder={"Search pizzas by allergen"}
         onChange={filterPizzasByAllergen}
       ></Filter>
@@ -74,7 +73,6 @@ function App() {
       </div>
     </div>
   );
-
 }
 
 export default App;
