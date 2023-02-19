@@ -1,4 +1,4 @@
-export async function getPizzas() {
+/* export async function getPizzas() {
   const url = "http://localhost:3000/api/pizzas";
   const res = await fetch(url);
   const data = await res.json();
@@ -10,11 +10,12 @@ export async function getPizzaByName(name) {
   const res = await fetch(url);
   const data = await res.json();
   return data;
-}
+} */
 
-export async function getPizzaByPrice(price) {
-  const url = `http://localhost:3000/api/pizzas?max-price=${price}`;
+export async function getPizzaByNamePriceAndAllergen(name, maxPrice,allergen) {
+  const url = `http://localhost:3000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen=${allergen}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
 }
+
