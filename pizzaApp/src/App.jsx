@@ -68,7 +68,10 @@ function App() {
       ></Filter>
       <div ref={divRef}>
         {filteredPizza.map((pizza) => (
-          <li key={pizza.id}>{pizza.name}</li>
+          <div key={pizza.id}>
+            <div>{pizza.name}</div>
+            <div>price: {pizza.price}</div>
+          </div>
         ))}
       </div>
     </div>
