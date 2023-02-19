@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { getPizzas } from "./data/data";
 import { getPizzaByName } from "./data/data";
+import { getPizzaByPrice} from "./data/data";
 import Header from "./components/Header";
 import banner from "./assets/pizza-banner.jpeg";
 import Filter from "./components/Filter";
@@ -31,6 +32,14 @@ function App() {
     }
     loadFilteredPizzas(name);
   }, [name]);
+  useEffect(() => {
+    async function loadFilteredPizzas(price) {
+      let data = await getPizzaByPrice(price);
+      setFilteredPizza(data);
+    }
+    loadFilteredPizzas(price);
+  }, [price]);
+
 
   return (
     <div className="homepage">
