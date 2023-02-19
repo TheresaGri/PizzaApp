@@ -1,9 +1,8 @@
-
 import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/header';
 import banner from './assets/pizza-banner.jpeg';
-import Filter from "./components/Filter";
+import Filter from './components/Filter';
 
 async function getPizzas() {
 	const url = 'http://localhost:3000/api/pizzas';
@@ -14,29 +13,29 @@ async function getPizzas() {
 
 function App() {
 	const [pizzas, setPizzas] = useState([]);
-  const [name, setName] = useState("");
-  const [filteredPizza, setFilteredPizza] = useState([]);
+	const [name, setName] = useState('');
+	const [filteredPizza, setFilteredPizza] = useState([]);
 
-	 useEffect(() => {
-    async function loadPizzas() {
-      let data = await getPizzas();
-      setPizzas(data);
-    }
-    loadPizzas();
-  }, []);
+	useEffect(() => {
+		async function loadPizzas() {
+			let data = await getPizzas();
+			setPizzas(data);
+		}
+		loadPizzas();
+	}, []);
 
-  function filterPizzas(event) {
-    setName(event.target.value);
-  }
+	function filterPizzas(event) {
+		setName(event.target.value);
+	}
 
-  useEffect(()=> {
-    async function loadFilteredPizzas(name) {
-      let data = await getPizzaByName(name);
-      setFilteredPizza(data)
-    }
-    loadFilteredPizzas(name);
+	useEffect(() => {
+		async function loadFilteredPizzas(name) {
+			let data = await getPizzaByName(name);
+			setFilteredPizza(data);
+		}
+		loadFilteredPizzas(name);
+	}, [name]);
 
-  },[name])
 	return (
 		<>
 			<div className='homepage'>
@@ -54,9 +53,10 @@ function App() {
 						<h2 id='browse-menu'>Browse Menu</h2>
 					</div>
 				</div>
-        <Filter name={name} onChange={filterPizzas}></Filter>
+				<Filter name={name} onChange={filterPizzas}></Filter>
 			</div>
 		</>
 	);
+}
 
 export default App;
