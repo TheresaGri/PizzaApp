@@ -52,21 +52,21 @@ function App() {
 				</div>
 			</div>
 			<Filter
-				name={name}
+				value={name}
 				placeholder={'Search pizzas by name'}
 				onChange={filterPizzasByName}
 			></Filter>
 			<Filter
-				name={maxPrice}
+				value={maxPrice}
 				placeholder={'Search pizzas by price'}
 				onChange={filterPizzasByPrice}
 			></Filter>
 			<Filter
-				name={allergen}
+				value={allergen}
 				placeholder={'Search pizzas by allergen'}
 				onChange={filterPizzasByAllergen}
 			></Filter>
-			<div id='menu' ref={divRef}>
+			<div ref={divRef}>
 				{filteredPizza.map((pizza) => (
 					<li key={pizza.id}>{pizza.name}</li>
 				))}
