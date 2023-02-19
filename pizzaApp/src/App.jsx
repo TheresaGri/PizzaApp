@@ -28,13 +28,10 @@ function App() {
   useEffect(() => {
     async function loadFilteredPizzas(name, maxPrice, allergen) {
       let data = await getPizzaByNamePriceAndAllergen(name, maxPrice, allergen);
-      console.log(data);
       setFilteredPizza(data);
     }
     loadFilteredPizzas(name, maxPrice, allergen);
   }, [name, maxPrice, allergen]);
-
-  console.log(filteredPizza);
 
   return (
     <div className="homepage">
