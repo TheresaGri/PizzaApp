@@ -1,44 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { getPizzas } from "./data/data";
-import { getPizzaByName } from "./data/data";
+import { getPizzaByNamePriceAndAllergen } from "./data/data";
 import Header from "./components/Header";
 import banner from "./assets/pizza-banner.jpeg";
 import Filter from "./components/Filter";
 
 function App() {
   const divRef = useRef(null);
-  const [pizzas, setPizzas] = useState([]);
+
   const [name, setName] = useState("");
+  const [maxPrice, setMaxPrice] = useState(20);
+  const [allergen, setAllergen] = useState("");
   const [filteredPizza, setFilteredPizza] = useState([]);
 
-  useEffect(() => {
-    async function loadPizzas() {
-      let data = await getPizzas();
-      setPizzas(data);
-    }
-    loadPizzas();
-  }, []);
-
-  function filterPizzas(event) {
+  function filterPizzasByName(event) {
     setName(event.target.value);
   }
 
+  function filterPizzasByPrice(event) {
+    setMaxPrice(event.target.value);
+  }
+
+  function filterPizzasByAllergen(event) {
+    setAllergen(event.target.value);
+  }
+
   useEffect(() => {
-    async function loadFilteredPizzas(name) {
-      let data = await getPizzaByName(name);
+    async function loadFilteredPizzas(name, maxPrice, allergen) {
+      let data = await getPizzaByNamePriceAndAllergen(name, maxPrice, allergen);
+      console.log(data);
       setFilteredPizza(data);
     }
-    loadFilteredPizzas(name);
-  }, [name]);
+    loadFilteredPizzas(name, maxPrice, allergen);
+  }, [name, maxPrice, allergen]);
+
+  console.log(filteredPizza);
 
   return (
     <div className="homepage">
-     {/*  <div>
-      {pizzas.map((pizza) => (
-        <li key={pizza.id}>{pizza.name}</li>
-      ))}
-      </div> */}
       <div id="banner">
         <Header
           onclick={() => divRef.current?.scrollIntoView({ behavior: "smooth" })}
@@ -52,7 +51,21 @@ function App() {
           <h2 id="browse-menu">Browse Menu</h2>
         </div>
       </div>
-      <Filter name={name} onChange={filterPizzas}></Filter>
+      <Filter
+        name={name}
+        placeholder={"Search pizzas by name"}
+        onChange={filterPizzasByName}
+      ></Filter>
+      <Filter
+        name={maxPrice}
+        placeholder={"Search pizzas by price"}
+        onChange={filterPizzasByPrice}
+      ></Filter>
+      <Filter
+        name={allergen}
+        placeholder={"Search pizzas by allergen"}
+        onChange={filterPizzasByAllergen}
+      ></Filter>
       <div ref={divRef}>
         {filteredPizza.map((pizza) => (
           <li key={pizza.id}>{pizza.name}</li>
