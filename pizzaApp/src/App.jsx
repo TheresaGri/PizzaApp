@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { getPizzas } from "./data/data";
 import { getPizzaByName } from "./data/data";
@@ -8,7 +8,6 @@ import banner from "./assets/pizza-banner.jpeg";
 import Filter from "./components/Filter";
 
 function App() {
-  const divRef = useRef(null);
   const [pizzas, setPizzas] = useState([]);
   const [name, setName] = useState("");
   const [filteredPizza, setFilteredPizza] = useState([]);
@@ -43,15 +42,11 @@ function App() {
 
   return (
     <div className="homepage">
-     {/*  <div>
       {pizzas.map((pizza) => (
         <li key={pizza.id}>{pizza.name}</li>
       ))}
-      </div> */}
       <div id="banner">
-        <Header
-          onclick={() => divRef.current?.scrollIntoView({ behavior: "smooth" })}
-        ></Header>
+        <Header> </Header>
         <div id="header-text">
           <h3 id="header-intro">
             When the moon hits your eye like a big pizza pie...
@@ -62,7 +57,7 @@ function App() {
         </div>
       </div>
       <Filter name={name} onChange={filterPizzas}></Filter>
-      <div ref={divRef}>
+      <div>
         {filteredPizza.map((pizza) => (
           <li key={pizza.id}>{pizza.name}</li>
         ))}
