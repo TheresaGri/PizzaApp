@@ -43,11 +43,15 @@ function App() {
 
   return (
     <div className="homepage">
+     {/*  <div>
       {pizzas.map((pizza) => (
         <li key={pizza.id}>{pizza.name}</li>
       ))}
+      </div> */}
       <div id="banner">
-        <Header onclick={() => divRef.current?.scrollIntoView({behavior: "smooth"})}> </Header>
+        <Header
+          onclick={() => divRef.current?.scrollIntoView({ behavior: "smooth" })}
+        ></Header>
         <div id="header-text">
           <h3 id="header-intro">
             When the moon hits your eye like a big pizza pie...
@@ -58,7 +62,7 @@ function App() {
         </div>
       </div>
       <Filter name={name} onChange={filterPizzas}></Filter>
-      <div ref = {divRef}>
+      <div ref={divRef}>
         {filteredPizza.map((pizza) => (
           <li key={pizza.id}>{pizza.name}</li>
         ))}
