@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
-import { getPizzaByName, getPizzas } from "./data/data";
-import "./App.css";
-import Header from "./components/Header";
-import banner from "./assets/banner.webp";
+
+import { useEffect, useState } from 'react';
+import './App.css';
+import Header from './components/header';
+import banner from './assets/pizza-banner.jpeg';
 import Filter from "./components/Filter";
 
+async function getPizzas() {
+	const url = 'http://localhost:3000/api/pizzas';
+	const res = await fetch(url);
+	const data = await res.json();
+	return data;
+}
+
 function App() {
-  const [pizzas, setPizzas] = useState([]);
+	const [pizzas, setPizzas] = useState([]);
   const [name, setName] = useState("");
   const [filteredPizza, setFilteredPizza] = useState([]);
 
-  useEffect(() => {
+	 useEffect(() => {
     async function loadPizzas() {
       let data = await getPizzas();
       setPizzas(data);
@@ -30,24 +37,26 @@ function App() {
     loadFilteredPizzas(name);
 
   },[name])
-
-  return (
-    <div className="homepage">
-      <Header onPress={() => displayPizzas()}></Header>
-      <Filter name={name} onChange={filterPizzas}></Filter>
-      <div>
-        {pizzas.map((pizza) => (
-          <li key={pizza.id}>{pizza.name}</li>
-        ))}
-      </div>
-      <div>
-        {filteredPizza.map((pizza) => (
-          <li>{pizza.name}</li>
-        ))}
-      </div>
-      <img id="restaurant-banner" src={banner}></img>
-    </div>
-  );
-}
+	return (
+		<>
+			<div className='homepage'>
+				{pizzas.map((pizza) => (
+					<li>{pizza.name}</li>
+				))}
+				<div id='banner'>
+					<Header> </Header>
+					<div id='header-text'>
+						<h3 id='header-intro'>
+							When the moon hits your eye like a big pizza pie...
+						</h3>
+						<h1 id='header-tagline'>That's Amore Pizza</h1>
+						<h2 id='reserve-table'>Reserve Table</h2>
+						<h2 id='browse-menu'>Browse Menu</h2>
+					</div>
+				</div>
+        <Filter name={name} onChange={filterPizzas}></Filter>
+			</div>
+		</>
+	);
 
 export default App;
