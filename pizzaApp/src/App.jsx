@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { getPizzaByNamePriceAndAllergen } from "./data/data";
@@ -73,6 +74,7 @@ function App() {
       </div>
     </div>
   );
+
 }
 
 export default App;
