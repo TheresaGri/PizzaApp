@@ -8,7 +8,7 @@ import Filter from "./components/Filter";
 function App() {
   const [pizzas, setPizzas] = useState([]);
   const [name, setName] = useState("");
-  const [filteredPizza, setFilteredPizza] = useState([]);
+
 
   useEffect(() => {
     async function loadPizzas() {
@@ -22,27 +22,26 @@ function App() {
     setName(event.target.value);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     async function loadFilteredPizzas(name) {
       let data = await getPizzaByName(name);
-      setFilteredPizza(data)
+      setFilteredPizza(data);
     }
     loadFilteredPizzas(name);
-
-  },[name])
+  }, [name]);
 
   return (
     <div className="homepage">
       <Header onPress={() => displayPizzas()}></Header>
       <Filter name={name} onChange={filterPizzas}></Filter>
-      <div>
+      <div >
         {pizzas.map((pizza) => (
           <li key={pizza.id}>{pizza.name}</li>
         ))}
       </div>
-      <div>
+      <div >
         {filteredPizza.map((pizza) => (
-          <li>{pizza.name}</li>
+          <li key = {pizza.id}>{pizza.name}</li>
         ))}
       </div>
       <img id="restaurant-banner" src={banner}></img>

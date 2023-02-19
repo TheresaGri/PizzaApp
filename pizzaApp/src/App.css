@@ -11,3 +11,11 @@
 	width: 100vw;
 	height: 40%;
 }
+
+.pizzas_listed_display_none {
+	display:none;
+}
+
+.pizzas_listed_display_block {
+	display:block;
+}
