@@ -1,12 +1,10 @@
-
 import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { getPizzaByNamePriceAndAllergen } from './data/data';
 import Header from './components/Header';
 import Filter from './components/Filter';
 import BannerText from './components/BannerText';
-import Select from "./components/Select";
-
+import Select from './components/Select';
 
 function App() {
 	const divRef = useRef(null);
@@ -45,7 +43,6 @@ function App() {
 			</div>
 
 			<div id='menu' ref={divRef}>
-				{' '}
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
 					<Filter
@@ -53,22 +50,24 @@ function App() {
 						placeholder={'Search pizzas by name'}
 						onChange={filterPizzasByName}
 					></Filter>
-      <Select
-        select={maxPrice}
-        onChange={(event) => setMaxPrice(event.target.value)}
-      ></Select>
+					<Select
+						select={maxPrice}
+						onChange={(event) => setMaxPrice(event.target.value)}
+					></Select>
 					<Filter
 						value={allergen}
 						placeholder={'Search pizzas by allergen'}
 						onChange={filterPizzasByAllergen}
 					></Filter>
 				</div>
-				{filteredPizza.map((pizza) => (
-					<div class='pizza-entry' key={pizza.id}>
-						<div class='pizza-name'>{pizza.name}</div>
-						<div class='pizza-price'>price: {pizza.price}</div>
-					</div>
-				))}
+				<div id='pizza-list'>
+					{filteredPizza.map((pizza) => (
+						<div class='pizza-entry' key={pizza.id}>
+							<div class='pizza-name'>{pizza.name}</div>
+							<div class='pizza-price'>€{pizza.price}.99</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

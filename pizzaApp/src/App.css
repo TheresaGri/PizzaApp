@@ -39,9 +39,28 @@
 	background-size: cover;
 }
 
+#menu-title {
+	height: 10%;
+	width: 100vw;
+	text-align: center;
+}
+
 #filter-input {
 	width: 100%;
+	gap: 1rem;
 	display: flex;
 	justify-content: center;
+	align-items: baseline;
+	height: 10%;
+}
+
+#filter-input > * {
 	height: 20px;
+}
+
+#pizza-list {
+	height: 70%;
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+	width: 80%;
+	border-radius: 2rem;
 }
