@@ -52,14 +52,16 @@ function App() {
         if (order.id === dataOfOrderedPizza[0].id && deleteOrAdd === "add") {
           order.amount += 1;
           dataOfOrderedPizza = [];
-        } else if (order.id === dataOfOrderedPizza[0].id && deleteOrAdd === "delete") {
+        } else if (
+          order.id === dataOfOrderedPizza[0].id &&
+          deleteOrAdd === "delete"
+        ) {
           if (order.amount > 0) {
             order.amount -= 1;
-
           } else {
             order.amount = 0;
-          }         
-           dataOfOrderedPizza = [];
+          }
+          dataOfOrderedPizza = [];
         }
       });
       setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
@@ -100,7 +102,7 @@ function App() {
           <div className="pizza-entry" key={pizza.id}>
             <div className="pizza-name">{pizza.name}</div>
             <div className="pizza-price">price: {pizza.price}</div>
-            <Button onPress = {() => deleteOrder(pizza.id)}>-</Button>
+            <Button onPress={() => deleteOrder(pizza.id)}>-</Button>
             <Button onPress={() => addToOrder(pizza.id)}>+</Button>
           </div>
         ))}
