@@ -41,6 +41,12 @@ function App() {
     async function loadPizzaById(id) {
       let data = await getPizzaById(id);
       let dataOfOrderedPizza = [{ id: data.id, amount: 1, name: data.name }];
+      orderedPizza.map((order) => {
+        if (order.id === dataOfOrderedPizza[0].id) {
+          order.amount += 1;  
+          dataOfOrderedPizza = [];
+        }
+      })
       setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
     }
     loadPizzaById(idOfOrder);
