@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400');
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@100;400');
+
 .homepage {
 	display: flex;
 	width: 100vw;
@@ -39,9 +41,62 @@
 	background-size: cover;
 }
 
+#menu-title {
+	height: 10%;
+	width: 100vw;
+	text-align: center;
+}
+
 #filter-input {
 	width: 100%;
+	gap: 1rem;
 	display: flex;
 	justify-content: center;
+	align-items: baseline;
+	height: 10%;
+}
+
+#filter-input > * {
 	height: 20px;
+}
+
+#pizza-list {
+	height: 70%;
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+	width: 80%;
+	border-radius: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1rem;
+}
+
+.pizza-entry {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.pizza-info {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.pizza-info,
+.pizza-price {
+	width: 40%;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.pizza-ingredients {
+	font-size: 0.6rem;
+	text-align: left;
+	width: 100%;
+}
+
+.pizza-name {
+	width: 100%;
+	text-align: left;
 }
