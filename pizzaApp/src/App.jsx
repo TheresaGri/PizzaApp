@@ -16,6 +16,7 @@ function App() {
   const [filteredPizza, setFilteredPizza] = useState([]);
   const [idOfOrder, setidOfOrder] = useState(0);
   const [orderedPizza, setOrderedPizza] = useState([]);
+  const [deleteOrAdd, setDeleteOrAdd] = useState("");
 
   function filterPizzasByName(event) {
     setName(event.target.value);
@@ -35,6 +36,12 @@ function App() {
 
   function addToOrder(id) {
     setidOfOrder(id);
+    setDeleteOrAdd("add");
+  }
+
+  function deleteOrder(id) {
+    setidOfOrder(id);
+    setDeleteOrAdd("delete");
   }
 
   useEffect(() => {
@@ -42,11 +49,19 @@ function App() {
       let data = await getPizzaById(id);
       let dataOfOrderedPizza = [{ id: data.id, amount: 1, name: data.name }];
       orderedPizza.map((order) => {
-        if (order.id === dataOfOrderedPizza[0].id) {
-          order.amount += 1;  
+        if (order.id === dataOfOrderedPizza[0].id && deleteOrAdd === "add") {
+          order.amount += 1;
           dataOfOrderedPizza = [];
+        } else if (order.id === dataOfOrderedPizza[0].id && deleteOrAdd === "delete") {
+          if (order.amount > 0) {
+            order.amount -= 1;
+
+          } else {
+            order.amount = 0;
+          }         
+           dataOfOrderedPizza = [];
         }
-      })
+      });
       setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
     }
     loadPizzaById(idOfOrder);
@@ -85,7 +100,7 @@ function App() {
           <div className="pizza-entry" key={pizza.id}>
             <div className="pizza-name">{pizza.name}</div>
             <div className="pizza-price">price: {pizza.price}</div>
-            <Button>-</Button>
+            <Button onPress = {() => deleteOrder(pizza.id)}>-</Button>
             <Button onPress={() => addToOrder(pizza.id)}>+</Button>
           </div>
         ))}
@@ -93,13 +108,13 @@ function App() {
       <div>
         Order:
         <div>
-        {orderedPizza.map((pizza) => (
-          <div key={pizza.id}>
-            id: {pizza.id}
-            <div>name: {pizza.name}</div>
-            <div>amount: {pizza.amount}</div>
-          </div>
-        ))}
+          {orderedPizza.map((pizza) => (
+            <div key={pizza.id}>
+              id: {pizza.id}
+              <div>name: {pizza.name}</div>
+              <div>amount: {pizza.amount}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
