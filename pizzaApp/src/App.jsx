@@ -5,14 +5,18 @@ import Header from './components/Header';
 import Filter from './components/Filter';
 import BannerText from './components/BannerText';
 import Select from './components/Select';
+import Button from './components/Button';
 
 function App() {
 	const divRef = useRef(null);
 
+	const [order, setOrder] = useState([]);
 	const [name, setName] = useState('');
 	const [maxPrice, setMaxPrice] = useState(20);
 	const [allergen, setAllergen] = useState('');
 	const [filteredPizza, setFilteredPizza] = useState([]);
+
+	console.log('current order', order);
 
 	function filterPizzasByName(event) {
 		setName(event.target.value);
@@ -22,16 +26,26 @@ function App() {
 		setAllergen(event.target.value);
 	}
 
+	function updateOrder(pizza) {
+		setOrder([
+			...order,
+			{
+				id: pizza.id,
+				name: pizza.name,
+				amount: 1,
+			},
+		]);
+
+		console.log('current order', order);
+	}
+
 	useEffect(() => {
 		async function loadFilteredPizzas(name, maxPrice, allergen) {
 			let data = await getPizzaByNamePriceAndAllergen(name, maxPrice, allergen);
-			console.log(data);
 			setFilteredPizza(data);
 		}
 		loadFilteredPizzas(name, maxPrice, allergen);
 	}, [name, maxPrice, allergen]);
-
-	console.log(filteredPizza);
 
 	return (
 		<div className='homepage'>
@@ -62,14 +76,20 @@ function App() {
 				</div>
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
-						<div class='pizza-entry' key={pizza.id}>
-							<div class='pizza-info'>
-								<span class='pizza-name'>{pizza.name}</span>
-								<span class='pizza-ingredients'>
+						<div className='pizza-entry' key={pizza.id}>
+							<div className='pizza-info'>
+								<span className='pizza-name'>{pizza.name}</span>
+								<span className='pizza-ingredients'>
 									{pizza.ingredients.join(', ')}
 								</span>
 							</div>
-							<div class='pizza-price'>€{pizza.price}.99</div>
+							<div className='pizza-price'>€{pizza.price - 1}.99</div>
+							<Button
+								className='add-order-button'
+								onClick={() => updateOrder(pizza)}
+							>
+								Add order
+							</Button>
 						</div>
 					))}
 				</div>
