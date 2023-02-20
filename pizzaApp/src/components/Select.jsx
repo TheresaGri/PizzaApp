@@ -1,12 +1,11 @@
-export default function Select({ select, onChange }) {
+export default function Select(props) {
   return (
     <div>
-      <select value={select} onChange={(event) => onChange(event)}>
-        <option>no limit</option>
-        <option>5€</option>
-        <option>10€</option>
-        <option>15€</option>
-        <option>20€</option>
+      <select value={props.select} onChange={(event) => props.onChange(event)}>
+        {props.array.map((e, index)=>
+        <option key={index} value={e.value} >{e.name}</option>
+        )}
+        
       </select>
     </div>
   );
