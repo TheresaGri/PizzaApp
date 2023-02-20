@@ -44,6 +44,7 @@ function App() {
       setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
     }
     loadPizzaById(idOfOrder);
+    setidOfOrder(0);
   }, [idOfOrder]);
 
   return (
