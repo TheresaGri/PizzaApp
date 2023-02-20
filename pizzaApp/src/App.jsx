@@ -52,9 +52,11 @@ function App() {
   const [orderedPizza, setOrderedPizza] = useState([]);
   const [deleteOrAdd, setDeleteOrAdd] = useState("");
 
-/*   function filterPizzasByName(event) {
+ function filterPizzasByName(event) {
     setName(event.target.value);
   }
+
+  /*
 
   function filterPizzasByAllergen(event) {
     setAllergen(event.target.value);
@@ -140,8 +142,8 @@ function App() {
           <div className="pizza-entry" key={pizza.id}>
             <div className="pizza-name">{pizza.name}</div>
             <div className="pizza-price">price: {pizza.price}</div>
-            <Button onPress={() => deleteOrder(pizza.id)}>-</Button>
-            <Button onPress={() => addToOrder(pizza.id)}>+</Button>
+            <Button onClick={() => deleteOrder(pizza.id)}>-</Button>
+            <Button onClick={() => addToOrder(pizza.id)}>+</Button>
           </div>
         ))}
       </div>
