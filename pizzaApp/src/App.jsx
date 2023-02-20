@@ -143,10 +143,10 @@ function App() {
 						placeholder={'Search pizzas by name'}
 						onChange={filterPizzasByName}
 					></Filter>
-					<Select
+					{/* <Select
 						select={maxPrice}
 						onChange={(event) => setMaxPrice(event.target.value)}
-					></Select>
+					></Select> */}
 					<Filter
 						value={allergen}
 						placeholder={'Search pizzas by allergen'}
@@ -156,7 +156,14 @@ function App() {
 				{filteredPizza.map((pizza) => (
 					<div class='pizza-entry' key={pizza.id}>
 						<div class='pizza-name'>{pizza.name}</div>
-						<div class='pizza-price'>price: {pizza.price}</div>
+						<div class='pizza-price'>Є{pizza.price - 1}.99</div>
+						<Button
+							onClick={() => {
+								updateOrder(pizza);
+							}}
+						>
+							Add order
+						</Button>
 					</div>
 				))}
 			</div>
