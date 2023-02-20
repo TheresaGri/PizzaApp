@@ -74,19 +74,29 @@
 	align-items: center;
 }
 
-.pizza-name {
+.pizza-info {
 	display: flex;
 	flex-wrap: wrap;
+	margin-left: 4rem;
 }
 
-.pizza-name,
+.pizza-info,
 .pizza-price {
 	width: 40%;
 	text-align: center;
 	font-size: 1.5rem;
 }
 
+.pizza-price {
+	margin-right: 4rem;
+}
+
 .pizza-ingredients {
 	font-size: 0.6rem;
+	text-align: left;
+}
+
+.pizza-name {
+	width: 100%;
 	text-align: left;
 }
