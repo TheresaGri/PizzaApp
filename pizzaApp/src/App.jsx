@@ -4,6 +4,7 @@ import { getPizzaByNamePriceAndAllergen } from "./data/data";
 import Header from "./components/Header";
 import banner from "./assets/pizza-banner.jpeg";
 import Filter from "./components/Filter";
+import Select from "./components/Select";
 
 function App() {
   const divRef = useRef(null);
@@ -15,10 +16,6 @@ function App() {
 
   function filterPizzasByName(event) {
     setName(event.target.value);
-  }
-
-  function filterPizzasByPrice(event) {
-    setMaxPrice(event.target.value);
   }
 
   function filterPizzasByAllergen(event) {
@@ -53,11 +50,10 @@ function App() {
         placeholder={"Search pizzas by name"}
         onChange={filterPizzasByName}
       ></Filter>
-      <Filter
-        value={maxPrice}
-        placeholder={"Search pizzas by price"}
-        onChange={filterPizzasByPrice}
-      ></Filter>
+      <Select
+        select={maxPrice}
+        onChange={(event) => setMaxPrice(event.target.value)}
+      ></Select>
       <Filter
         value={allergen}
         placeholder={"Search pizzas by allergen"}
