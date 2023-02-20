@@ -63,7 +63,12 @@ function App() {
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
 						<div class='pizza-entry' key={pizza.id}>
-							<div class='pizza-name'>{pizza.name}</div>
+							<div class='pizza-name'>
+								{pizza.name}
+								<span class='pizza-ingredients'>
+									{pizza.ingredients.join(', ')}
+								</span>
+							</div>
 							<div class='pizza-price'>€{pizza.price}.99</div>
 						</div>
 					))}

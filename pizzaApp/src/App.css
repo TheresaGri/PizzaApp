@@ -62,5 +62,31 @@
 	height: 70%;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 	width: 80%;
-	border-radius: 2rem;
+	border-radius: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.pizza-entry {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.pizza-name {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.pizza-name,
+.pizza-price {
+	width: 40%;
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.pizza-ingredients {
+	font-size: 0.6rem;
+	text-align: left;
 }
