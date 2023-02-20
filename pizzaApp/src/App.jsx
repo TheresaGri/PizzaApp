@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { getPizzaByNamePriceAndAllergen } from './data/data';
 import Header from './components/Header';
-import banner from './assets/pizza-banner.jpeg';
 import Filter from './components/Filter';
+import BannerText from './components/BannerText';
 
 function App() {
 	const divRef = useRef(null);
@@ -42,35 +42,33 @@ function App() {
 				<Header
 					onclick={() => divRef.current?.scrollIntoView({ behavior: 'smooth' })}
 				></Header>
-				<div id='header-text'>
-					<h3 id='header-intro'>
-						When the moon hits your eye like a big pizza pie...
-					</h3>
-					<h1 id='header-tagline'>That's Amore Pizza</h1>
-					<h2 id='reserve-table'>Reserve Table</h2>
-					<h2 id='browse-menu'>Browse Menu</h2>
-				</div>
+				<BannerText></BannerText>
 			</div>
-			<Filter
-				value={name}
-				placeholder={'Search pizzas by name'}
-				onChange={filterPizzasByName}
-			></Filter>
-			<Filter
-				value={maxPrice}
-				placeholder={'Search pizzas by price'}
-				onChange={filterPizzasByPrice}
-			></Filter>
-			<Filter
-				value={allergen}
-				placeholder={'Search pizzas by allergen'}
-				onChange={filterPizzasByAllergen}
-			></Filter>
-			<div ref={divRef}>
+
+			<div id='menu' ref={divRef}>
+				{' '}
+				<h1 id='menu-title'>Menu</h1>
+				<div id='filter-input'>
+					<Filter
+						value={name}
+						placeholder={'Search pizzas by name'}
+						onChange={filterPizzasByName}
+					></Filter>
+					<Filter
+						value={maxPrice}
+						placeholder={'Search pizzas by price'}
+						onChange={filterPizzasByPrice}
+					></Filter>
+					<Filter
+						value={allergen}
+						placeholder={'Search pizzas by allergen'}
+						onChange={filterPizzasByAllergen}
+					></Filter>
+				</div>
 				{filteredPizza.map((pizza) => (
-					<div key={pizza.id}>
-						<div>{pizza.name}</div>
-						<div>price: {pizza.price}</div>
+					<div class='pizza-entry' key={pizza.id}>
+						<div class='pizza-name'>{pizza.name}</div>
+						<div class='pizza-price'>price: {pizza.price}</div>
 					</div>
 				))}
 			</div>
