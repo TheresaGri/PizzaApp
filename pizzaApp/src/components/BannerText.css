@@ -1,0 +1,36 @@
+#header-text {
+	width: 100vw;
+	height: 60vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	color: white;
+}
+
+#header-intro {
+	width: 100%;
+	height: 10%;
+	margin-left: 2rem;
+}
+
+#header-tagline {
+	width: 100%;
+	height: 20%;
+	text-align: center;
+}
+
+#reserve-table,
+#browse-menu {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	height: 5%;
+	margin: 1rem;
+	border: 2px solid transparent;
+}
+
+#reserve-table:hover,
+#browse-menu:hover {
+	border: white solid 2px;
+}
