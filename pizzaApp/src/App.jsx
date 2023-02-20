@@ -10,13 +10,12 @@ import Button from './components/Button';
 function App() {
 	const divRef = useRef(null);
 
+	const [orderNumber, setOrderNumber] = useState(0);
 	const [order, setOrder] = useState([]);
 	const [name, setName] = useState('');
 	const [maxPrice, setMaxPrice] = useState(20);
 	const [allergen, setAllergen] = useState('');
 	const [filteredPizza, setFilteredPizza] = useState([]);
-
-	console.log('current order', order);
 
 	function filterPizzasByName(event) {
 		setName(event.target.value);
@@ -36,7 +35,7 @@ function App() {
 			},
 		]);
 
-		console.log('current order', order);
+		setOrderNumber(orderNumber + 1);
 	}
 
 	useEffect(() => {
@@ -51,6 +50,7 @@ function App() {
 		<div className='homepage'>
 			<div id='banner'>
 				<Header
+					value={orderNumber}
 					onclick={() => divRef.current?.scrollIntoView({ behavior: 'smooth' })}
 				></Header>
 				<BannerText></BannerText>
