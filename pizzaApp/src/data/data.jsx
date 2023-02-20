@@ -19,3 +19,10 @@ export async function getPizzaByNamePriceAndAllergen(name, maxPrice,allergen) {
   return data;
 }
 
+export async function getPizzaById (id) {
+  const url = `http://localhost:3000/api/pizzas/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
+
