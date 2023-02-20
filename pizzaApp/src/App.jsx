@@ -44,7 +44,9 @@ function App() {
       setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
     }
     loadPizzaById(idOfOrder);
+    setidOfOrder(0);
   }, [idOfOrder]);
+
 
   return (
     <div className="homepage">
@@ -86,13 +88,13 @@ function App() {
       <div>
         Order:
         <div>
-        {orderedPizza.map((pizza) => (
-          <div key={pizza.id}>
-            id: {pizza.id}
-            <div>name: {pizza.name}</div>
-            <div>amount: {pizza.amount}</div>
-          </div>
-        ))}
+          {orderedPizza.map((pizza) => (
+            <div key={pizza.id}>
+              id: {pizza.id}
+              <div>name: {pizza.name}</div>
+              <div>amount: {pizza.amount}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
