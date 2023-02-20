@@ -153,17 +153,22 @@ function App() {
 						onChange={filterPizzasByAllergen}
 					></Filter>
 				</div>
-				{filteredPizza.map((pizza) => (
-					<div class='pizza-entry' key={pizza.id}>
-						<div class='pizza-name'>{pizza.name}</div>
-						<div class='pizza-price'>Є{pizza.price - 1}.99</div>
-						<Button
-							onClick={() => {
-								updateOrder(pizza);
-							}}
-						>
-							Add order
-						</Button>
+				<div id='pizza-list'>
+					{filteredPizza.map((pizza) => (
+						<div className='pizza-entry' key={pizza.id}>
+							<div className='pizza-info'>
+								<span className='pizza-name'>{pizza.name}</span>
+								<span className='pizza-ingredients'>
+									{pizza.ingredients.join(', ')}
+								</span>
+							</div>
+							<div className='pizza-price'>€{pizza.price - 1}.99</div>
+							<Button
+								className='add-order-button'
+								onClick={() => updateOrder(pizza)}
+							>
+								Add order
+							</Button>
 					</div>
 				))}
 			</div>
