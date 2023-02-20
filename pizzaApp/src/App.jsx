@@ -169,8 +169,9 @@ function App() {
 							>
 								Add order
 							</Button>
-					</div>
-				))}
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);
