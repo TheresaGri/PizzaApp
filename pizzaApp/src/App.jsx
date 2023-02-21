@@ -185,7 +185,7 @@ function App() {
 						<div className='pizza-price'>€{pizza.price - 0.01}</div>
             <div className='order-buttons'>
 								<Button onClick={() => addToOrder(pizza.id)}>+</Button>
-								<Button onClick={() => deleteOrder(pizza.id)}>-</Button>
+								<Button onClick={() => deleteOrder(pizza.id)}>🗑</Button>
 							</div>
 					</div>
 				))}
