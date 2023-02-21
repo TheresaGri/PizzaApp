@@ -6,6 +6,7 @@ import Filter from './components/Filter';
 import BannerText from './components/BannerText';
 import Select from './components/Select';
 import Button from './components/Button';
+import LabelAndInput from './components/LabelAndInput';
 
 const maxPriceList = [
 	{ name: 'No limit', value: 30 },
@@ -51,6 +52,18 @@ function App() {
 	const [idOfOrder, setidOfOrder] = useState(0);
 	const [orderedPizza, setOrderedPizza] = useState([]);
 	const [deleteOrAdd, setDeleteOrAdd] = useState('');
+	const [form, setForm] = useState({
+		name: '',
+		email: '',
+		adress: { city: '', street: '' },
+	});
+
+	const submitChange = (event) => {
+		setForm({
+			...form,
+			[event.target.id]: event.target.value,
+		});
+	};
 
 	function filterPizzasByName(event) {
 		setName(event.target.value);
@@ -105,6 +118,28 @@ function App() {
 		setidOfOrder(0);
 	}, [idOfOrder]);
 
+	const handleSubmit = (event) => {
+		event.preventDefault();
+
+		alert(form.name + ' ' + form.email + ' ' + form.city + ' ' + form.street);
+	};
+	console.log(form);
+	const date = new Date();
+
+	const dataOfOrder = {
+		pizzas: orderedPizza,
+		date: {
+			year: date.getFullYear(),
+			month: date.getMonth() + 1,
+			day: date.getDate(),
+			hours: date.getHours(),
+			minutes: date.getMinutes(),
+		},
+		customer: {
+			form,
+		},
+	};
+
 	return (
 		<div className='homepage'>
 			<div id='banner'>
@@ -147,6 +182,43 @@ function App() {
 					</div>
 				))}
 			</div>
+			<form id='form' onSubmit={handleSubmit}>
+				<LabelAndInput
+					label='name'
+					id='name'
+					value={form.name}
+					handleChange={submitChange}
+				>
+					Name:{' '}
+				</LabelAndInput>
+				<LabelAndInput
+					label='email'
+					id='email'
+					value={form.email}
+					handleChange={submitChange}
+				>
+					Email:{' '}
+				</LabelAndInput>
+				<LabelAndInput
+					label='city'
+					id='city'
+					value={form.city}
+					handleChange={submitChange}
+				>
+					City:{' '}
+				</LabelAndInput>
+				<LabelAndInput
+					label='street'
+					id='street'
+					value={form.street}
+					handleChange={submitChange}
+				>
+					Street:{' '}
+				</LabelAndInput>
+				<button type='submit' id='submitButton'>
+					Submit
+				</button>
+			</form>
 			<div>
 				<h1>Order:</h1>
 				<div>
