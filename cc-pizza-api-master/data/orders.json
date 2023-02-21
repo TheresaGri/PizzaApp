@@ -123,40 +123,5 @@
       }
     },
     "completed": false
-  },
-  {
-    "pizzas": [
-      {
-        "id": 2,
-        "amount": 1,
-        "name": "Salami"
-      },
-      {
-        "id": 3,
-        "amount": 1,
-        "name": "Marinara"
-      },
-      {
-        "id": 4,
-        "amount": 1,
-        "name": "Funghi"
-      }
-    ],
-    "date": {
-      "year": 2023,
-      "month": 2,
-      "day": 21,
-      "hours": 16,
-      "minutes": 45
-    },
-    "customer": {
-      "form": {
-        "name": "Theresa",
-        "email": "t@gmx.at",
-        "city": "vienna",
-        "street": "hellostreet"
-      }
-    },
-    "id": 6
   }
 ]
