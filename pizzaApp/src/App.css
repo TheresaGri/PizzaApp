@@ -43,6 +43,8 @@
 
 #menu-title {
 	height: 10%;
+	margin-top: 1rem;
+	margin-bottom: 0;
 	width: 100vw;
 	text-align: center;
 }
@@ -99,4 +101,16 @@
 .pizza-name {
 	width: 100%;
 	text-align: left;
+}
+
+.order-buttons {
+	display: flex;
+	justify-content: space-around;
+}
+
+.order-buttons > * {
+	width: 20%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
 }
