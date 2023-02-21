@@ -8,14 +8,14 @@ import Select from "./components/Select";
 import Button from "./components/Button";
 
 const maxPriceList = [
-  { name: "No limit", value: 0 },
+  { name: "No limit", value: 30 },
   { name: "5€", value: 5 },
   { name: "10€", value: 10 },
   { name: "15€", value: 15 },
   { name: "20€", value: 20 },
 ];
 const allergensList = [
-  { name: "No Allergen", value: 0 },
+  { name: "No Allergen", value: "Nuts" },
   { name: "Gluten", value: "Gluten" },
   { name: "Crustaceans", value: "GluCrustaceansten" },
   { name: "Egg", value: "Egg" },
@@ -32,7 +32,7 @@ const allergensList = [
   { name: "Molluscs", value: "Molluscs" },
 ];
 const pizzaNamesList = [
-  { name: "All Pizzas", value: 0 },
+  { name: "All Pizzas", value: "" },
   { name: "Margherita", value: "Margherita" },
   { name: "Salami", value: "Salami" },
   { name: "Marinara", value: "Marinara" },
@@ -45,26 +45,23 @@ const pizzaNamesList = [
 function App() {
   const divRef = useRef(null);
   const [name, setName] = useState("");
-  const [maxPrice, setMaxPrice] = useState(20);
-  const [allergen, setAllergen] = useState(" ");
+  const [maxPrice, setMaxPrice] = useState(30);
+  const [allergen, setAllergen] = useState("Nuts");
   const [filteredPizza, setFilteredPizza] = useState([]);
   const [idOfOrder, setidOfOrder] = useState(0);
   const [orderedPizza, setOrderedPizza] = useState([]);
   const [deleteOrAdd, setDeleteOrAdd] = useState("");
 
- function filterPizzasByName(event) {
+  function filterPizzasByName(event) {
     setName(event.target.value);
   }
 
-  /*
-
   function filterPizzasByAllergen(event) {
+    let value = event.value;
     setAllergen(event.target.value);
   }
 
-  function filterPizzasByMaxPrice(event) {
-    setAllergen(event.target.value);
-  } */
+	
 
   useEffect(() => {
     async function loadFilteredPizzas(name, maxPrice, allergen) {
@@ -135,7 +132,7 @@ function App() {
           <Select
             array={allergensList}
             select={allergen}
-            onChange={(event) => setAllergen(event.target.value)}
+            onChange={filterPizzasByAllergen}
           ></Select>
         </div>
         {filteredPizza.map((pizza) => (
