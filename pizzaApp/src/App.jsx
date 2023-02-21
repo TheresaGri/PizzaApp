@@ -53,7 +53,7 @@ function App() {
   const [orderedPizza, setOrderedPizza] = useState([]);
   const [deleteOrAdd, setDeleteOrAdd] = useState("");
   const [form, setForm] = useState({
-    name: "", email: "", adress : {city: "", street: ""} 
+    name: "", email: "", city: "", street: ""
   });
 
   const submitChange = (event) => {
@@ -118,11 +118,8 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    alert(form.name + " " + form.email + " " + form.city + " " + form.street);
-  };
-  console.log(form);
-  const date = new Date();
+    const date = new Date();
+
 
   const dataOfOrder = {
     pizzas: orderedPizza,
@@ -137,6 +134,18 @@ function App() {
      form
     },
   }
+
+  fetch("http://localhost:3000/api/orders", {
+    method: "POST",
+    body: JSON.stringify(dataOfOrder),
+    headers: { "Content-Type": "application/json" },
+  });
+    
+  };
+ 
+  console.log(form);
+
+
 
  
 
