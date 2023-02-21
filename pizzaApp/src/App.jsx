@@ -44,19 +44,6 @@ const pizzaNamesList = [
 ];
 
 function App() {
-<<<<<<< HEAD
-  const divRef = useRef(null);
-  const [name, setName] = useState("");
-  const [maxPrice, setMaxPrice] = useState(30);
-  const [allergen, setAllergen] = useState("Nuts");
-  const [filteredPizza, setFilteredPizza] = useState([]);
-  const [idOfOrder, setidOfOrder] = useState(0);
-  const [orderedPizza, setOrderedPizza] = useState([]);
-  const [deleteOrAdd, setDeleteOrAdd] = useState("");
-  const [form, setForm] = useState({
-    name: "", email: "", city: "", street: ""
-  });
-=======
 	const divRef = useRef(null);
 	const [name, setName] = useState('');
 	const [maxPrice, setMaxPrice] = useState(30);
@@ -70,7 +57,6 @@ function App() {
 		email: '',
 		adress: { city: '', street: '' },
 	});
->>>>>>> 09692ea2b80c4c93b436255033030e0ebadd0074
 
 	const submitChange = (event) => {
 		setForm({
@@ -132,36 +118,14 @@ function App() {
 		setidOfOrder(0);
 	}, [idOfOrder]);
 
-<<<<<<< HEAD
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const date = new Date();
-
-=======
 	const handleSubmit = (event) => {
 		event.preventDefault();
->>>>>>> 09692ea2b80c4c93b436255033030e0ebadd0074
 
 		alert(form.name + ' ' + form.email + ' ' + form.city + ' ' + form.street);
 	};
 	console.log(form);
 	const date = new Date();
 
-<<<<<<< HEAD
-  fetch("http://localhost:3000/api/orders", {
-    method: "POST",
-    body: JSON.stringify(dataOfOrder),
-    headers: { "Content-Type": "application/json" },
-  });
-    
-  };
- 
-  console.log(form);
-
-
-
- 
-=======
 	const dataOfOrder = {
 		pizzas: orderedPizza,
 		date: {
@@ -175,7 +139,6 @@ function App() {
 			form,
 		},
 	};
->>>>>>> 09692ea2b80c4c93b436255033030e0ebadd0074
 
 	return (
 		<div className='homepage'>
@@ -217,7 +180,7 @@ function App() {
 							<div className='pizza-price'>€{pizza.price - 0.01}</div>
 							<div className='order-buttons'>
 								<Button onClick={() => addToOrder(pizza.id)}>+</Button>
-								<Button onClick={() => deleteOrder(pizza.id)}>-</Button>
+								<Button onClick={() => deleteOrder(pizza.id)}>🗑</Button>
 							</div>
 						</div>
 					))}
