@@ -168,19 +168,21 @@ function App() {
 						onChange={filterPizzasByAllergen}
 					></Select>
 				</div>
-				{filteredPizza.map((pizza) => (
-					<div className='pizza-entry' key={pizza.id}>
-						<div className='pizza-info'>
-							<div className='pizza-name'>{pizza.name}</div>
-							<div className='pizza-ingredients'>
-								{pizza.ingredients.join(', ')}
+				<div id='pizza-list'>
+					{filteredPizza.map((pizza) => (
+						<div className='pizza-entry' key={pizza.id}>
+							<div className='pizza-info'>
+								<div className='pizza-name'>{pizza.name}</div>
+								<div className='pizza-ingredients'>
+									{pizza.ingredients.join(', ')}
+								</div>
 							</div>
+							<div className='pizza-price'>€{pizza.price - 0.01}</div>
+							<Button onClick={() => addToOrder(pizza.id)}>+</Button>
+							<Button onClick={() => deleteOrder(pizza.id)}>-</Button>
 						</div>
-						<div className='pizza-price'>€{pizza.price - 0.01}</div>
-						<Button onClick={() => deleteOrder(pizza.id)}>-</Button>
-						<Button onClick={() => addToOrder(pizza.id)}>+</Button>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 			<form id='form' onSubmit={handleSubmit}>
 				<LabelAndInput
