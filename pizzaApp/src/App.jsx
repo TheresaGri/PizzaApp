@@ -143,9 +143,7 @@ function App() {
 			headers: { 'Content-Type': 'application/json' },
 		});
 	};
-
-	console.log(form);
-
+  
 	return (
 		<div className='homepage'>
 			<div id='banner'>
