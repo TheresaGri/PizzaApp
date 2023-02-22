@@ -1,5 +1,8 @@
-export default function Button({children, onPress}) {
-  return (
-    <button onClick={() => {onPress()}}>{children}</button>
-  );
+import './Button.css';
+export default function Button({ onClick, children }) {
+	return (
+		<>
+			<button onClick={onClick}>{children}</button>
+		</>
+	);
 }
