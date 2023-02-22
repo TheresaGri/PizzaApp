@@ -8,6 +8,7 @@ import Select from "./components/Select";
 import Button from "./components/Button";
 import LabelAndInput from "./components/LabelAndInput";
 import Popper from "./components/Popper";
+import Sorting from "./components/Sort";
 
 const maxPriceList = [
   { name: "No limit", value: 30 },
@@ -52,6 +53,8 @@ function App() {
   const [filteredPizza, setFilteredPizza] = useState([]);
   const [orders, setOrders] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [sortAsc, setSortAsc] = useState([]);
+  const [sortDesc, setSortDesc] = useState([]);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -66,22 +69,30 @@ function App() {
     });
   };
 
-  function filterPizzasByName(event) {
-    setName(event.target.value);
-  }
-
   function filterPizzasByAllergen(event) {
     let value = event.value;
     setAllergen(event.target.value);
   }
 
   useEffect(() => {
-    async function loadFilteredPizzas(name, maxPrice, allergen) {
-      let data = await getPizzaByNamePriceAndAllergen(name, maxPrice, allergen);
+    async function loadFilteredPizzas(
+      name,
+      maxPrice,
+      allergen,
+      sortAsc,
+      sortDesc
+    ) {
+      let data = await getPizzaByNamePriceAndAllergen(
+        name,
+        maxPrice,
+        allergen,
+        sortAsc,
+        sortDesc
+      );
       setFilteredPizza(data);
     }
-    loadFilteredPizzas(name, maxPrice, allergen);
-  }, [name, maxPrice, allergen]);
+    loadFilteredPizzas(name, maxPrice, allergen, sortAsc, sortDesc);
+  }, [name, maxPrice, allergen, sortAsc, sortDesc]);
 
   function addOrder(pizza) {
     setOrders([
@@ -97,7 +108,6 @@ function App() {
 
   function deleteOrder(pizza) {
     const index = orders.findIndex((order) => order.name === pizza.name);
-    setOrderTotal(orderTotal - pizza.price);
     if (index !== -1) {
       const orderAmount = orders[index].amount;
       const orderPrice = orders[index].price * orderAmount;

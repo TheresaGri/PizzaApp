@@ -12,8 +12,8 @@ export async function getPizzaByName(name) {
   return data;
 } */
 
-export async function getPizzaByNamePriceAndAllergen(name, maxPrice, allergen) {
-  const url = `http://localhost:3000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}`;
+export async function getPizzaByNamePriceAndAllergen(name, maxPrice, allergen,sortAsc, sortDesc) {
+  const url = `http://localhost:3000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}&sort-asc${sortAsc}&sort-desc${sortDesc}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
@@ -25,3 +25,4 @@ export async function getPizzaById(id) {
   const data = await res.json();
   return data;
 }
+
