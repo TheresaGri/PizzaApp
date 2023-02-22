@@ -2,7 +2,7 @@ import './Popper.css';
 import Button from './Button';
 import React, { useState } from 'react';
 
-export default function Popper() {
+export default function Popper({ children }) {
 	const [open, setOpen] = useState(false);
 
 	function checkPopper() {
@@ -10,9 +10,8 @@ export default function Popper() {
 	}
 
 	return (
-		<div className='popper'>
-			<Button onClick={checkPopper}>CLICK ME</Button>
-			{open ? <div id='surprise'>Tadaaa!!</div> : null}
+		<div className='popper' onClick={checkPopper}>
+			{open ? <div className='popper-content'>{children}</div> : null}
 		</div>
 	);
 }

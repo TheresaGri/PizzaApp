@@ -102,7 +102,7 @@ function App() {
 		]);
 	}
 
-	const combinedOrders = orders.reduce((acc, curr) => {
+	const combineOrderAmount = orders.reduce((acc, curr) => {
 		const existingOrderIndex = acc.findIndex(
 			(combinedOrder) => combinedOrder.name === curr.name
 		);
@@ -149,9 +149,24 @@ function App() {
 		<div className='homepage'>
 			<div id='banner'>
 				<Header
+					value={5}
 					onclick={() => divRef.current?.scrollIntoView({ behavior: 'smooth' })}
-				></Header>
-				<Popper></Popper>
+				>
+					<Popper>
+						<div id='active-order'>
+							<h1>Order:</h1>
+							<ul>
+								{combineOrderAmount.map((order) =>
+									order.amount > 0 ? (
+										<li key={order.name}>
+											{order.name}: {order.amount}
+										</li>
+									) : null
+								)}
+							</ul>
+						</div>
+					</Popper>
+				</Header>
 				<BannerText></BannerText>
 			</div>
 			<div id='menu' ref={divRef}>
@@ -183,7 +198,7 @@ function App() {
 									{pizza.ingredients.join(', ')}
 								</div>
 							</div>
-							<div className='pizza-price'>€{pizza.price - 0.01}</div>
+							<div className='pizza-price'>€{pizza.price}.00</div>
 							<div className='order-buttons'>
 								<Button onClick={() => addOrder(pizza)}>+</Button>
 								<Button onClick={() => deleteOrder(pizza)}>🗑</Button>
@@ -229,10 +244,10 @@ function App() {
 					Submit
 				</button>
 			</form>
-			<div>
+			<div id='active-order'>
 				<h1>Order:</h1>
 				<ul>
-					{combinedOrders.map((order) =>
+					{combineOrderAmount.map((order) =>
 						order.amount > 0 ? (
 							<li key={order.name}>
 								{order.name}: {order.amount}
