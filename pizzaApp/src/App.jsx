@@ -50,9 +50,7 @@ function App() {
 	const [maxPrice, setMaxPrice] = useState(30);
 	const [allergen, setAllergen] = useState('Nuts');
 	const [filteredPizza, setFilteredPizza] = useState([]);
-	const [idOfOrder, setidOfOrder] = useState(0);
-	const [orderedPizza, setOrderedPizza] = useState([]);
-	const [deleteOrAdd, setDeleteOrAdd] = useState('');
+	const [orders, setOrders] = useState([]);
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
@@ -84,48 +82,50 @@ function App() {
 		loadFilteredPizzas(name, maxPrice, allergen);
 	}, [name, maxPrice, allergen]);
 
-	function addToOrder(id) {
-		setidOfOrder(id);
-		setDeleteOrAdd('add');
+	function addOrder(pizza) {
+		setOrders([
+			...orders,
+			{
+				name: pizza.name,
+				amount: 1,
+			},
+		]);
 	}
 
-	function deleteOrder(id) {
-		setidOfOrder(id);
-		setDeleteOrAdd('delete');
+	function deleteOrder(pizza) {
+		setOrders([
+			...orders,
+			{
+				name: pizza.name,
+				amount: -1,
+			},
+		]);
 	}
 
-	useEffect(() => {
-		async function loadPizzaById(id) {
-			let data = await getPizzaById(id);
-			let dataOfOrderedPizza = [{ id: data.id, amount: 1, name: data.name }];
-			orderedPizza.map((order) => {
-				if (order.id === dataOfOrderedPizza[0].id && deleteOrAdd === 'add') {
-					order.amount += 1;
-					dataOfOrderedPizza = [];
-				} else if (
-					order.id === dataOfOrderedPizza[0].id &&
-					deleteOrAdd === 'delete'
-				) {
-					if (order.amount > 0) {
-						order.amount -= 1;
-					} else {
-						order.amount = 0;
-					}
-					dataOfOrderedPizza = [];
-				}
-			});
-			setOrderedPizza([...orderedPizza, ...dataOfOrderedPizza]);
+	const combinedOrders = orders.reduce((acc, curr) => {
+		const existingOrderIndex = acc.findIndex(
+			(combinedOrder) => combinedOrder.name === curr.name
+		);
+
+		if (existingOrderIndex !== -1) {
+			acc[existingOrderIndex].amount += curr.amount;
+
+			if (acc[existingOrderIndex].amount === 0) {
+				acc.splice(existingOrderIndex, 1);
+			}
+		} else {
+			acc.push({ ...curr });
 		}
-		loadPizzaById(idOfOrder);
-		setidOfOrder(0);
-	}, [idOfOrder]);
+
+		return acc;
+	}, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const date = new Date();
 
 		const dataOfOrder = {
-			pizzas: orderedPizza,
+			pizzas: orders,
 			date: {
 				year: date.getFullYear(),
 				month: date.getMonth() + 1,
@@ -144,7 +144,7 @@ function App() {
 			headers: { 'Content-Type': 'application/json' },
 		});
 	};
-  
+
 	return (
 		<div className='homepage'>
 			<div id='banner'>
@@ -185,8 +185,8 @@ function App() {
 							</div>
 							<div className='pizza-price'>€{pizza.price - 0.01}</div>
 							<div className='order-buttons'>
-								<Button onClick={() => addToOrder(pizza.id)}>+</Button>
-								<Button onClick={() => deleteOrder(pizza.id)}>🗑</Button>
+								<Button onClick={() => addOrder(pizza)}>+</Button>
+								<Button onClick={() => deleteOrder(pizza)}>🗑</Button>
 							</div>
 						</div>
 					))}
@@ -231,15 +231,15 @@ function App() {
 			</form>
 			<div>
 				<h1>Order:</h1>
-				<div>
-					{orderedPizza.map((pizza) => (
-						<div key={pizza.id}>
-							id: {pizza.id}
-							<div>name: {pizza.name}</div>
-							<div>amount: {pizza.amount}</div>
-						</div>
-					))}
-				</div>
+				<ul>
+					{combinedOrders.map((order) =>
+						order.amount > 0 ? (
+							<li key={order.name}>
+								{order.name}: {order.amount}
+							</li>
+						) : null
+					)}
+				</ul>
 			</div>
 		</div>
 	);
