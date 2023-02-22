@@ -1,8 +1,9 @@
 import './Header.css';
 import Badge from './Badge';
 import { forwardRef } from 'react';
+import Popper from './Popper';
 
-function Header({ onclick, value }, ref) {
+function Header({ onclick, value, children }, ref) {
 	return (
 		<div id='header'>
 			<div className='header-div' id='header-home'>
@@ -21,8 +22,9 @@ function Header({ onclick, value }, ref) {
 			<div className='header-div' id='header-about'>
 				About
 			</div>
-			<Badge value={value}>
-				<span id='shopping-cart'>🛒 </span>
+			<Badge value={value} className='header-div' id='orders'>
+				🛒
+				{children}
 			</Badge>
 		</div>
 	);
