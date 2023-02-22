@@ -83,29 +83,46 @@ function App() {
 		loadFilteredPizzas(name, maxPrice, allergen);
 	}, [name, maxPrice, allergen]);
 
+	function filterPizzaID(orders, id, value) {
+		for (let i = 0; i < orders.length; i++) {
+			if (orders[i][id] === value) {
+				orders.splice(i, 1);
+				return orders;
+			}
+		}
+		return orders;
+	}
+
+	function findPizza(array, key, value) {
+		for (let i = 0; i < array.length; i++) {
+			if (array[i][key] === value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	function addOrder(pizza) {
 		setOrders([
 			...orders,
 			{
+				id: pizza.id,
 				name: pizza.name,
 				amount: 1,
 				price: pizza.price,
 			},
 		]);
 		setOrderTotal(orderTotal + pizza.price);
+		console.log(orders);
 	}
 
 	function deleteOrder(pizza) {
-		setOrderTotal(orderTotal - pizza.price);
-
-		setOrders([
-			...orders,
-			{
-				name: pizza.name,
-				amount: -1,
-				price: pizza.price,
-			},
-		]);
+		if (findPizza(orders, 'id', pizza.id)) {
+			setOrders(filterPizzaID(orders, 'id', pizza.id));
+			setOrderTotal(orderTotal - pizza.price);
+		} else {
+			return;
+		}
 	}
 
 	const combineOrderAmount = orders.reduce((acc, curr) => {
