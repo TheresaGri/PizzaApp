@@ -19,9 +19,6 @@ function Header({ onclick, value, children }, ref) {
 			>
 				Menu
 			</div>
-			<div className='header-div' id='header-about'>
-				About
-			</div>
 			<Badge value={value} className='header-div' id='orders'>
 				🛒
 				{children}

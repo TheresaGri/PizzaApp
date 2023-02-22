@@ -96,22 +96,16 @@ function App() {
 	}
 
 	function deleteOrder(pizza) {
-		for (let pizzas of orders) {
-			if (pizza.name in pizzas) {
-				setOrderTotal(orderTotal - pizza.price);
+		setOrderTotal(orderTotal - pizza.price);
 
-				setOrders([
-					...orders,
-					{
-						name: pizza.name,
-						amount: -1,
-						price: pizza.price,
-					},
-				]);
-			} else {
-				return;
-			}
-		}
+		setOrders([
+			...orders,
+			{
+				name: pizza.name,
+				amount: -1,
+				price: pizza.price,
+			},
+		]);
 	}
 
 	const combineOrderAmount = orders.reduce((acc, curr) => {
