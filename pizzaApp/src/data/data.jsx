@@ -25,3 +25,4 @@ export async function getPizzaById(id) {
   const data = await res.json();
   return data;
 }
+
