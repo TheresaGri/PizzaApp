@@ -4,15 +4,20 @@
 	position: absolute;
 	display: flex;
 	flex-wrap: wrap;
+	z-index: 2;
 }
 
 .popper-content > * {
-	height: 80vh;
+	height: 70vh;
 	width: 25vw;
 	z-index: 1;
 	background-color: white;
 	position: absolute;
 	right: 50%;
 	top: 100%;
-	font-size: 1rem;
+	font-size: 0.8rem;
+	display: flex;
+	flex-wrap: wrap;
+	border-radius: 1rem;
+	border: 4px rgb(83, 82, 82) solid;
 }
