@@ -51,6 +51,7 @@ function App() {
 	const [allergen, setAllergen] = useState('Nuts');
 	const [filteredPizza, setFilteredPizza] = useState([]);
 	const [orders, setOrders] = useState([]);
+	const [orderTotal, setOrderTotal] = useState(0);
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
@@ -91,17 +92,26 @@ function App() {
 				price: pizza.price,
 			},
 		]);
+		setOrderTotal(orderTotal + pizza.price);
 	}
 
 	function deleteOrder(pizza) {
-		setOrders([
-			...orders,
-			{
-				name: pizza.name,
-				amount: -1,
-				price: pizza.price,
-			},
-		]);
+		for (let pizzas of orders) {
+			if (pizza.name in pizzas) {
+				setOrderTotal(orderTotal - pizza.price);
+
+				setOrders([
+					...orders,
+					{
+						name: pizza.name,
+						amount: -1,
+						price: pizza.price,
+					},
+				]);
+			} else {
+				return;
+			}
+		}
 	}
 
 	const combineOrderAmount = orders.reduce((acc, curr) => {
@@ -174,7 +184,8 @@ function App() {
 								)}
 							</div>
 							<div id='order-total'>
-								<b>Total: </b>
+								<span>Total: </span>
+								<span>€{orderTotal}.00</span>
 							</div>
 						</div>
 					</Popper>

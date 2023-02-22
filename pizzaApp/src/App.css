@@ -164,6 +164,8 @@
 	height: 10%;
 	font-size: 1.5rem;
 	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
 }
 
 .item-name,
