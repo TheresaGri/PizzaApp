@@ -117,3 +117,72 @@
 	font-weight: bolder;
 	background: transparent;
 }
+
+#order-title {
+	width: 100%;
+	height: 15%;
+	margin: 0;
+	font-size: 1.6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#order-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	align-content: flex-start;
+	margin: 1rem;
+}
+
+#order-line {
+	width: 60%;
+	height: 0.1px;
+}
+
+.order-item {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+
+#active-order,
+.item-amount {
+	display: flex;
+}
+
+#active-order {
+	overflow-y: scroll;
+	align-content: flex-start;
+}
+
+#order-total {
+	width: 100%;
+	height: 10%;
+	font-size: 1.5rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+.item-name,
+.item-price {
+	width: 50%;
+	display: flex;
+}
+
+.item-price {
+	justify-content: end;
+}
+
+.item-amount {
+	width: 100%;
+	justify-content: end;
+}
+
+.item-name {
+	font-size: 1rem;
+}
