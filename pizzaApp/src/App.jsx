@@ -7,6 +7,7 @@ import BannerText from './components/BannerText';
 import Select from './components/Select';
 import Button from './components/Button';
 import LabelAndInput from './components/LabelAndInput';
+import Popper from './components/Popper';
 
 const maxPriceList = [
 	{ name: 'No limit', value: 30 },
@@ -152,6 +153,7 @@ function App() {
 				<Header
 					onclick={() => divRef.current?.scrollIntoView({ behavior: 'smooth' })}
 				></Header>
+				<Popper></Popper>
 				<BannerText></BannerText>
 			</div>
 			<div id='menu' ref={divRef}>
