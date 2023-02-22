@@ -19,7 +19,7 @@ const maxPriceList = [
 const allergensList = [
 	{ name: 'No Allergen', value: 'Nuts' },
 	{ name: 'Gluten', value: 'Gluten' },
-	{ name: 'Crustaceans', value: 'GluCrustaceansten' },
+	{ name: 'Crustaceans', value: 'Crustaceansten' },
 	{ name: 'Egg', value: 'Egg' },
 	{ name: 'Fish', value: 'Fish' },
 	{ name: 'Peanut', value: 'Peanut' },
@@ -96,23 +96,19 @@ function App() {
 	}
 
 	function deleteOrder(pizza) {
-		for (let pizzas of orders) {
-			if (pizza.name in pizzas) {
-				setOrderTotal(orderTotal - pizza.price);
-
-				setOrders([
-					...orders,
-					{
-						name: pizza.name,
-						amount: -1,
-						price: pizza.price,
-					},
-				]);
-			} else {
-				return;
-			}
-		}
-	}
+    const index = orders.findIndex(order => order.name === pizza.name);
+  
+    if (index !== -1) {
+      const orderAmount = orders[index].amount;
+      const orderPrice = orders[index].price * orderAmount;
+  
+      setOrderTotal(orderTotal - orderPrice);
+  
+      const updatedOrders = [...orders];
+      updatedOrders.splice(index, 1);
+      setOrders(updatedOrders);
+    }
+  }
 
 	const combineOrderAmount = orders.reduce((acc, curr) => {
 		const existingOrderIndex = acc.findIndex(
@@ -223,7 +219,7 @@ function App() {
 							</div>
 							<div className='pizza-price'>€{pizza.price}.00</div>
 							<div className='order-buttons'>
-								<Button onClick={() => addOrder(pizza)}>+</Button>
+								<Button onClick={() => addOrder(pizza)}>➕</Button>
 								<Button onClick={() => deleteOrder(pizza)}>🗑</Button>
 							</div>
 						</div>
