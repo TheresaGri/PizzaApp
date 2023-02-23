@@ -1,12 +1,11 @@
-#sorting-bar {
+.sort-bar {
 	height: 100%;
-	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 1rem;
 }
 
-.sort-button {
+#sort-button {
 	width: 30%;
 	height: 20px;
 }

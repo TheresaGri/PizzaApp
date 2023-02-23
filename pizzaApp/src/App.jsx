@@ -11,7 +11,7 @@ import Popper from './components/Popper';
 import { formLabels } from './data/formLabels';
 import { maxPriceList } from './data/maxPriceList';
 import { allergensList } from './data/allergensList';
-import Sorting from './components/Sort';
+import Sort from './components/Sort';
 
 function App() {
 	const refMenu = useRef(null);
@@ -194,10 +194,10 @@ function App() {
 				{' '}
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
-					<Sorting
+					<Sort
 						onSortName={() => setSort('name')}
 						onSortPrice={() => setSort('price')}
-					></Sorting>
+					></Sort>
 					<Filter
 						value={name}
 						placeholer={'Search pizza by name'}
