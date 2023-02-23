@@ -1,6 +1,7 @@
 import Button from './Button';
 import './Sort.css';
 
+
 export default function Sort(props) {
 	return (
 		<div className='sort-bar'>

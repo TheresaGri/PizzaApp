@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
-import './App.css';
-import { getPizzaByNamePriceAndAllergen } from './data/data';
-import Header from './components/Header';
-import Filter from './components/Filter';
-import BannerText from './components/BannerText';
-import Select from './components/Select';
-import Button from './components/Button';
-import LabelAndInput from './components/LabelAndInput';
-import Popper from './components/Popper';
-import { formLabels } from './data/formLabels';
-import { maxPriceList } from './data/maxPriceList';
-import { allergensList } from './data/allergensList';
-import Sort from './components/Sort';
+import { useEffect, useRef, useState } from "react";
+import "./App.css";
+import { getOrders, getPizzaByNamePriceAndAllergen } from "./data/data";
+import Header from "./components/Header";
+import Filter from "./components/Filter";
+import BannerText from "./components/BannerText";
+import Select from "./components/Select";
+import Button from "./components/Button";
+import LabelAndInput from "./components/LabelAndInput";
+import Popper from "./components/Popper";
+import Sorting from "./components/Sort";
+import { formLabels } from "./data/formLabels";
+import { maxPriceList } from "./data/maxPriceList";
+import { allergensList } from "./data/allergensList";
+import PasswordField from "./components/PasswordField";
 
 function App() {
 	const refMenu = useRef(null);
@@ -31,39 +32,54 @@ function App() {
 		street: '',
 	});
 
-	const submitChange = (event) => {
-		setForm({
-			...form,
-			[event.target.id]: event.target.value,
-		});
-	};
+  const [classNameOfPasswordField, setClassNameOfPasswordField] = useState(
+    "PasswordField_displayNone"
+  );
+  const [ordersData, setOrdersData] = useState([]);
+  const [classNameOfOrders, setClassNameOfOrders] =
+    useState("Orders_displayNone");
+
+  const submitChange = (event) => {
+    setForm({
+      ...form,
+      [event.target.id]: event.target.value,
+    });
+  };
 
 	function filterPizzasByAllergen(event) {
 		setAllergen(event.target.value);
 	}
 
-	useEffect(() => {
-		async function loadFilteredPizzas(name, maxPrice, allergen, sort) {
-			let data = await getPizzaByNamePriceAndAllergen(
-				name,
-				maxPrice,
-				allergen,
-				sort
-			);
-			setFilteredPizza(data);
-		}
-		loadFilteredPizzas(name, maxPrice, allergen, sort);
-	}, [name, maxPrice, allergen, sort]);
+  useEffect(() => {
+    async function loadFilteredPizzas(name, maxPrice, allergen, sort) {
+      let data = await getPizzaByNamePriceAndAllergen(
+        name,
+        maxPrice,
+        allergen,
+        sort
+      );
+      setFilteredPizza(data);
+    }
+    loadFilteredPizzas(name, maxPrice, allergen, sort);
+  }, [name, maxPrice, allergen, sort]);
 
-	function filterPizzaID(orders, id, value) {
-		for (let i = 0; i < orders.length; i++) {
-			if (orders[i][id] === value) {
-				orders.splice(i, 1);
-				return orders;
-			}
-		}
-		return orders;
-	}
+  useEffect(() => {
+    async function loadOrders() {
+      let data = await getOrders();
+      setOrdersData(data);
+    }
+    loadOrders();
+  }, []);
+
+  function filterPizzaID(orders, id, value) {
+    for (let i = 0; i < orders.length; i++) {
+      if (orders[i][id] === value) {
+        orders.splice(i, 1);
+        return orders;
+      }
+    }
+    return orders;
+  }
 
 	function findPizza(array, key, value) {
 		for (let i = 0; i < array.length; i++) {
@@ -150,118 +166,144 @@ function App() {
 		});
 	};
 
-	return (
-		<div className='homepage'>
-			<div id='banner' ref={refHome}>
-				<Header
-					value={orderAmount}
-					onclick={() =>
-						refMenu.current?.scrollIntoView({ behavior: 'smooth' })
-					}
-					onPress={() =>
-						refHome.current?.scrollIntoView({ behavior: 'smooth' })
-					}
-				>
-					<Popper>
-						<div id='active-order'>
-							<h1 id='order-title'>Your order</h1>
-							<hr id='order-line'></hr>
-							<div id='order-list'>
-								{combineOrderAmount.map((order) =>
-									order.amount > 0 ? (
-										<div className='order-item' key={order.name}>
-											<div className='item-name'>{order.name}</div>
-											<div className='item-price'>
-												€{order.price * order.amount}.00
-											</div>
-											<span className='item-amount'>
-												Amount: {order.amount}
-											</span>
-										</div>
-									) : null
-								)}
-							</div>
-							<div id='order-total'>
-								<span>Total: </span>
-								<span>€{orderTotal}.00</span>
-							</div>
-						</div>
-					</Popper>
-				</Header>
-				<BannerText></BannerText>
-			</div>
-			<div id='menu' ref={refMenu}>
-				{' '}
-				<h1 id='menu-title'>Menu</h1>
-				<div id='filter-input'>
-					<Sort
-						onSortName={() => setSort('name')}
-						onSortPrice={() => setSort('price')}
-					></Sort>
-					<Filter
-						value={name}
-						placeholer={'Search pizza by name'}
-						onChange={(event) => setName(event.target.value)}
-					></Filter>
-					<Select
-						array={maxPriceList}
-						select={maxPrice}
-						onChange={(event) => setMaxPrice(event.target.value)}
-					></Select>
-					<Select
-						array={allergensList}
-						select={allergen}
-						onChange={filterPizzasByAllergen}
-					></Select>
-				</div>
-				<div id='pizza-list'>
-					{filteredPizza.map((pizza) => (
-						<div className='pizza-entry' key={pizza.id}>
-							<div className='pizza-info'>
-								<div className='pizza-name'>{pizza.name}</div>
-								<div className='pizza-ingredients'>
-									{pizza.ingredients.join(', ')}
-								</div>
-							</div>
-							<div className='pizza-price'>€{pizza.price}.00</div>
-							<div className='order-buttons'>
-								<Button onClick={() => addOrder(pizza)}>+</Button>
-								<Button onClick={() => deleteOrder(pizza)}>🗑</Button>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-			<div id='order-checkout'>
-				<form id='form' onSubmit={handleSubmit}>
-					{formLabels.map((item) => (
-						<LabelAndInput
-							key={item}
-							label={item}
-							id={item}
-							value={form.item}
-							handleChange={submitChange}
-						></LabelAndInput>
-					))}
-					<button type='submit' id='submitButton'>
-						Submit
-					</button>
-				</form>
-				<div id='active-order'>
-					<h1>Order:</h1>
-					<ul>
-						{combineOrderAmount.map((order) =>
-							order.amount > 0 ? (
-								<li key={order.name}>
-									{order.name}: {order.amount}
-								</li>
-							) : null
-						)}
-					</ul>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="homepage">
+      <div id="banner" ref={refHome}>
+        <Header
+          value={orderAmount}
+          onclick={() =>
+            refMenu.current?.scrollIntoView({ behavior: "smooth" })
+          }
+          onPress={() =>
+            refHome.current?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          <Popper>
+            <div id="active-order">
+              <h1 id="order-title">Your order</h1>
+              <hr id="order-line"></hr>
+              <div id="order-list">
+                {combineOrderAmount.map((order) =>
+                  order.amount > 0 ? (
+                    <div className="order-item" key={order.name}>
+                      <div className="item-name">{order.name}</div>
+                      <div className="item-price">
+                        €{order.price * order.amount}.00
+                      </div>
+                      <span className="item-amount">
+                        Amount: {order.amount}
+                      </span>
+                    </div>
+                  ) : null
+                )}
+              </div>
+              <div id="order-total">
+                <span>Total: </span>
+                <span>€{orderTotal}.00</span>
+              </div>
+            </div>
+          </Popper>
+        </Header>
+        <BannerText></BannerText>
+      </div>
+      <div id="menu" ref={refMenu}>
+        {" "}
+        <h1 id="menu-title">Menu</h1>
+        <div id="filter-input">
+          <Filter
+            value={name}
+            placeholer={"Search pizza by name"}
+            onChange={(event) => setName(event.target.value)}
+          ></Filter>
+          <Select
+            array={maxPriceList}
+            select={maxPrice}
+            onChange={(event) => setMaxPrice(event.target.value)}
+          ></Select>
+          <Select
+            array={allergensList}
+            select={allergen}
+            onChange={filterPizzasByAllergen}
+          ></Select>
+        </div>
+        <Sorting
+          onSortName={() => setSort("name")}
+          onSortPrice={() => setSort("price")}
+        ></Sorting>
+        <div id="pizza-list">
+          {filteredPizza.map((pizza) => (
+            <div className="pizza-entry" key={pizza.id}>
+              <div className="pizza-info">
+                <div className="pizza-name">{pizza.name}</div>
+                <div className="pizza-ingredients">
+                  {pizza.ingredients.join(", ")}
+                </div>
+              </div>
+              <div className="pizza-price">€{pizza.price}.00</div>
+              <div className="order-buttons">
+                <Button onClick={() => addOrder(pizza)}>+</Button>
+                <Button onClick={() => deleteOrder(pizza)}>🗑</Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <form id="form" onSubmit={handleSubmit}>
+          {formLabels.map((item) => (
+            <LabelAndInput
+              key={item}
+              label={item}
+              id={item}
+              value={form.item}
+              handleChange={submitChange}
+            ></LabelAndInput>
+          ))}
+          <button type="submit" id="submitButton">
+            Submit
+          </button>
+        </form>
+        <div id="active-order">
+          <h1>Order:</h1>
+          <ul>
+            {combineOrderAmount.map((order) =>
+              order.amount > 0 ? (
+                <li key={order.name}>
+                  {order.name}: {order.amount}
+                </li>
+              ) : null
+            )}
+          </ul>
+        </div>
+        <div className="ordersForOwner">
+          <Button
+            onClick={() =>
+              setClassNameOfPasswordField(".PasswordField_displayBlock")
+            }
+          >
+            owner
+          </Button>
+          <PasswordField
+            className={classNameOfPasswordField}
+            pressEnter={(event) => {
+              if (event.key === "Enter" && event.target.value === "hello") {
+                setClassNameOfOrders("Orders_displayBlock");
+              }
+            }}
+          ></PasswordField>
+          <div className={classNameOfOrders}>
+            {ordersData.map((order) => (
+              <li>
+                {order.id}
+                {order.customer.name}
+                {order.completed}
+              </li>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default App;
