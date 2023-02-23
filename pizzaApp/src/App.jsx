@@ -275,6 +275,7 @@ function App() {
             )}
           </ul>
         </div>
+        <div>
         <div className="ordersForOwner">
           <Button
             onClick={() =>
@@ -300,6 +301,7 @@ function App() {
               </li>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </div>
