@@ -232,32 +232,46 @@ function App() {
 					))}
 				</div>
 			</div>
-			<div id='order-checkout'>
-				<form id='form' onSubmit={handleSubmit}>
-					{formLabels.map((item) => (
-						<LabelAndInput
-							key={item}
-							label={item}
-							id={item}
-							value={form.item}
-							handleChange={submitChange}
-						></LabelAndInput>
-					))}
-					<button type='submit' id='submitButton'>
-						Submit
-					</button>
-				</form>
-				<div id='active-order'>
-					<h1>Order:</h1>
-					<ul>
-						{combineOrderAmount.map((order) =>
-							order.amount > 0 ? (
-								<li key={order.name}>
-									{order.name}: {order.amount}
-								</li>
-							) : null
-						)}
-					</ul>
+			<div id='checkout'>
+				<h1 id='checkout-title'>Order Checkout</h1>
+				<div id='checkout-container'>
+					{' '}
+					<form id='delivery-form' onSubmit={handleSubmit}>
+						<h2>Delivery Details</h2>
+
+						{formLabels.map((item) => (
+							<LabelAndInput
+								key={item}
+								label={item}
+								id={item}
+								value={form.item}
+								handleChange={submitChange}
+							></LabelAndInput>
+						))}
+						<button type='submit' id='submitButton'>
+							Submit
+						</button>
+					</form>
+					<div id='checkout-order'>
+						<h2 id='checkout-order-title'>Order:</h2>
+						<div>
+							{combineOrderAmount.map((order) =>
+								order.amount > 0 ? (
+									<div className='order-item' key={order.name}>
+										<div className='item-name'>{order.name}</div>
+										<div className='item-price'>
+											€{order.price * order.amount}.00
+										</div>
+										<span className='item-amount'>Amount: {order.amount}</span>
+									</div>
+								) : null
+							)}
+						</div>
+						<div id='order-total'>
+							<span>Total: </span>
+							<span>€{orderTotal}.00</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
