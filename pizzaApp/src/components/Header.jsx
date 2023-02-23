@@ -3,10 +3,13 @@ import Badge from './Badge';
 import { forwardRef } from 'react';
 import Popper from './Popper';
 
-function Header({ onclick, value, children }, ref) {
+function Header({ onclick, onPress, value, children }, ref) {
 	return (
 		<div id='header'>
-			<div className='header-div' id='header-home'>
+			<div className='header-div' id='header-home'
+			ref = {ref}
+			onClick = {() => {onPress();}}
+			>
 				Home
 			</div>
 			<div
