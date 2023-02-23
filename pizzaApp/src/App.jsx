@@ -13,7 +13,8 @@ import { maxPriceList } from './data/maxPriceList';
 import { allergensList } from './data/allergensList';
 
 function App() {
-	const divRef = useRef(null);
+	const refMenu = useRef(null);
+	const refHome = useRef(null);
 	const [name, setName] = useState('');
 	const [maxPrice, setMaxPrice] = useState(30);
 	const [allergen, setAllergen] = useState('Nuts');
@@ -144,10 +145,15 @@ function App() {
 
 	return (
 		<div className='homepage'>
-			<div id='banner'>
+			<div id='banner' ref={refHome}>
 				<Header
-					value={5}
-					onclick={() => divRef.current?.scrollIntoView({ behavior: 'smooth' })}
+					value={orderAmount}
+					onclick={() =>
+						refMenu.current?.scrollIntoView({ behavior: 'smooth' })
+					}
+					onPress={() =>
+						refHome.current?.scrollIntoView({ behavior: 'smooth' })
+					}
 				>
 					<Popper>
 						<div id='active-order'>
@@ -177,7 +183,7 @@ function App() {
 				</Header>
 				<BannerText></BannerText>
 			</div>
-			<div id='menu' ref={divRef}>
+			<div id='menu' ref={refMenu}>
 				{' '}
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
