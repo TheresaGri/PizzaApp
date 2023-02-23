@@ -221,31 +221,33 @@ function App() {
 					))}
 				</div>
 			</div>
-			<form id='form' onSubmit={handleSubmit}>
-				{formLabels.map((item) => (
-					<LabelAndInput
-						key={item}
-						label={item}
-						id={item}
-						value={form.item}
-						handleChange={submitChange}
-					></LabelAndInput>
-				))}
-				<button type='submit' id='submitButton'>
-					Submit
-				</button>
-			</form>
-			<div id='active-order'>
-				<h1>Order:</h1>
-				<ul>
-					{combineOrderAmount.map((order) =>
-						order.amount > 0 ? (
-							<li key={order.name}>
-								{order.name}: {order.amount}
-							</li>
-						) : null
-					)}
-				</ul>
+			<div id='order-checkout'>
+				<form id='form' onSubmit={handleSubmit}>
+					{formLabels.map((item) => (
+						<LabelAndInput
+							key={item}
+							label={item}
+							id={item}
+							value={form.item}
+							handleChange={submitChange}
+						></LabelAndInput>
+					))}
+					<button type='submit' id='submitButton'>
+						Submit
+					</button>
+				</form>
+				<div id='active-order'>
+					<h1>Order:</h1>
+					<ul>
+						{combineOrderAmount.map((order) =>
+							order.amount > 0 ? (
+								<li key={order.name}>
+									{order.name}: {order.amount}
+								</li>
+							) : null
+						)}
+					</ul>
+				</div>
 			</div>
 		</div>
 	);
