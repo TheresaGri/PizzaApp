@@ -116,6 +116,8 @@
 	font-size: 20px;
 	font-weight: bolder;
 	background: transparent;
+	color: white;
+
 }
 
 #order-title {
@@ -185,4 +187,20 @@
 
 .item-name {
 	font-size: 1rem;
+}
+
+.PasswordField_displayNone {
+	display: none;
+}
+
+.PasswordField_displayBlock {
+	display: block;
+}
+
+.Orders_displayNone {
+	display: none;
+}
+
+.Orders_displayBlock {
+	display: block;
 }
