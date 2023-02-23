@@ -1,0 +1,15 @@
+.PasswordField_displayNone {
+	display: none;
+}
+
+.PasswordField_displayBlock {
+	display: block;
+}
+
+.Orders_displayNone {
+	display: none;
+}
+
+.Orders_displayBlock {
+	display: block;
+}
