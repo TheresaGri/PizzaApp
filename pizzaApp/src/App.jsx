@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import "./App.css";
-import { getPizzaByNamePriceAndAllergen } from "./data/data";
-import Header from "./components/Header";
-import Filter from "./components/Filter";
-import BannerText from "./components/BannerText";
-import Select from "./components/Select";
-import Button from "./components/Button";
-import LabelAndInput from "./components/LabelAndInput";
-import Popper from "./components/Popper";
-import { formLabels } from "./data/formLabels";
-import { maxPriceList } from "./data/maxPriceList";
-import { allergensList } from "./data/allergensList";
+import { useEffect, useRef, useState } from 'react';
+import './App.css';
+import { getPizzaByNamePriceAndAllergen } from './data/data';
+import Header from './components/Header';
+import Filter from './components/Filter';
+import BannerText from './components/BannerText';
+import Select from './components/Select';
+import Button from './components/Button';
+import LabelAndInput from './components/LabelAndInput';
+import Popper from './components/Popper';
+import { formLabels } from './data/formLabels';
+import { maxPriceList } from './data/maxPriceList';
+import { allergensList } from './data/allergensList';
 
 function App() {
   const refMenu = useRef(null);
@@ -21,6 +21,7 @@ function App() {
   const [filteredPizza, setFilteredPizza] = useState([]);
   const [orders, setOrders] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [orderAmount, setOrderAmount] = useState(0);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -77,13 +78,14 @@ function App() {
       },
     ]);
     setOrderTotal(orderTotal + pizza.price);
-    console.log(orders);
+    setOrderAmount(orderAmount + 1);
   }
 
   function deleteOrder(pizza) {
     if (findPizza(orders, "id", pizza.id)) {
       setOrders(filterPizzaID(orders, "id", pizza.id));
       setOrderTotal(orderTotal - pizza.price);
+      setOrderAmount(orderAmount - 1);
     } else {
       return;
     }
@@ -243,6 +245,7 @@ function App() {
       </div>
     </div>
   );
+
 }
 
 export default App;
