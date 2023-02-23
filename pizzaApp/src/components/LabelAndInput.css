@@ -1,6 +1,6 @@
-#form {
-  display: flex;
-  flex-direction: column;
+.labelDiv {
+	font-family: 'Montserrat';
+
 }
 
 #submitButton {
