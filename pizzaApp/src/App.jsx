@@ -225,11 +225,11 @@ function App() {
 						select={allergen}
 						onChange={filterPizzasByAllergen}
 					></Select>
+					<Sort
+						onSortName={() => setSort('name')}
+						onSortPrice={() => setSort('price')}
+					></Sort>
 				</div>
-				<Sort
-					onSortName={() => setSort('name')}
-					onSortPrice={() => setSort('price')}
-				></Sort>
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
 						<div className='pizza-entry' key={pizza.id}>
@@ -289,32 +289,31 @@ function App() {
 						</div>
 					</div>
 				</div>
-				<div>
-					<div className='ordersForOwner'>
-						<Button
-							onClick={() =>
-								setClassNameOfPasswordField('.PasswordField_displayBlock')
+
+				<div id='orders-overview'>
+					<Button
+						onClick={() =>
+							setClassNameOfPasswordField('.PasswordField_displayBlock')
+						}
+					>
+						owner
+					</Button>
+					<PasswordField
+						className={classNameOfPasswordField}
+						pressEnter={(event) => {
+							if (event.key === 'Enter' && event.target.value === 'hello') {
+								setClassNameOfOrders('Orders_displayBlock');
 							}
-						>
-							owner
-						</Button>
-						<PasswordField
-							className={classNameOfPasswordField}
-							pressEnter={(event) => {
-								if (event.key === 'Enter' && event.target.value === 'hello') {
-									setClassNameOfOrders('Orders_displayBlock');
-								}
-							}}
-						></PasswordField>
-						<div className={classNameOfOrders}>
-							{ordersData.map((order) => (
-								<li>
-									{order.id}
-									{order.customer.name}
-									{order.completed}
-								</li>
-							))}
-						</div>
+						}}
+					></PasswordField>
+					<div className={classNameOfOrders}>
+						{ordersData.map((order) => (
+							<li>
+								{order.id}
+								{order.customer.name}
+								{order.completed}
+							</li>
+						))}
 					</div>
 				</div>
 			</div>
