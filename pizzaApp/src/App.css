@@ -6,7 +6,7 @@
 	display: flex;
 	width: 100vw;
 	height: 300vh;
-	justify-content: center;
+		justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	background-color: black;
@@ -206,5 +206,8 @@
 	display: block;
 }
 #order-checkout {
+	background: black;
 	height: 100vh;
 }
+
+
