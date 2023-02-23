@@ -1,9 +1,12 @@
 #sorting-bar {
-	height: 50px;
-	background: linear-gradient(rgba(98, 61, 61, 0.7), rgba(255, 255, 255, 0.7));
-	width: 80%;
-	border-radius: 1rem;
+	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 1rem;
+}
+
+.sort-button {
+	width: 30%;
+	height: 20px;
 }

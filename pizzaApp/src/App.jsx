@@ -194,6 +194,10 @@ function App() {
 				{' '}
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
+					<Sorting
+						onSortName={() => setSort('name')}
+						onSortPrice={() => setSort('price')}
+					></Sorting>
 					<Filter
 						value={name}
 						placeholer={'Search pizza by name'}
@@ -210,10 +214,6 @@ function App() {
 						onChange={filterPizzasByAllergen}
 					></Select>
 				</div>
-				<Sorting
-					onSortName={() => setSort('name')}
-					onSortPrice={() => setSort('price')}
-				></Sorting>
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
 						<div className='pizza-entry' key={pizza.id}>
@@ -232,31 +232,33 @@ function App() {
 					))}
 				</div>
 			</div>
-			<form id='form' onSubmit={handleSubmit}>
-				{formLabels.map((item) => (
-					<LabelAndInput
-						key={item}
-						label={item}
-						id={item}
-						value={form.item}
-						handleChange={submitChange}
-					></LabelAndInput>
-				))}
-				<button type='submit' id='submitButton'>
-					Submit
-				</button>
-			</form>
-			<div id='active-order'>
-				<h1>Order:</h1>
-				<ul>
-					{combineOrderAmount.map((order) =>
-						order.amount > 0 ? (
-							<li key={order.name}>
-								{order.name}: {order.amount}
-							</li>
-						) : null
-					)}
-				</ul>
+			<div id='order-checkout'>
+				<form id='form' onSubmit={handleSubmit}>
+					{formLabels.map((item) => (
+						<LabelAndInput
+							key={item}
+							label={item}
+							id={item}
+							value={form.item}
+							handleChange={submitChange}
+						></LabelAndInput>
+					))}
+					<button type='submit' id='submitButton'>
+						Submit
+					</button>
+				</form>
+				<div id='active-order'>
+					<h1>Order:</h1>
+					<ul>
+						{combineOrderAmount.map((order) =>
+							order.amount > 0 ? (
+								<li key={order.name}>
+									{order.name}: {order.amount}
+								</li>
+							) : null
+						)}
+					</ul>
+				</div>
 			</div>
 		</div>
 	);

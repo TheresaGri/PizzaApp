@@ -188,3 +188,7 @@
 .item-name {
 	font-size: 1rem;
 }
+
+#order-checkout {
+	background: black;
+}
