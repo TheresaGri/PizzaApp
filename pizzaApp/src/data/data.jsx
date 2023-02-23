@@ -12,8 +12,9 @@ export async function getPizzaByName(name) {
   return data;
 } */
 
-export async function getPizzaByNamePriceAndAllergen(name, maxPrice, allergen,sortAsc, sortDesc) {
-  const url = `http://localhost:3000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}&sort-asc${sortAsc}&sort-desc${sortDesc}`;
+export async function getPizzaByNamePriceAndAllergen(name, maxPrice, allergen, sortAsc, sortDesc) {
+  const sort = sortAsc === 'name' ? 'sort-asc=name' : '';
+  const url = `http://localhost:3000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}&${sort}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
