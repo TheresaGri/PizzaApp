@@ -204,7 +204,6 @@
 	display: block;
 }
 #checkout {
-	background: black;
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -221,10 +220,12 @@
 }
 
 #checkout-container {
-	width: 80%;
+	width: 60%;
 	height: 60%;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 	display: flex;
+	padding: 1rem;
+	border-radius: 1rem;
 }
 
 #checkout-order {
