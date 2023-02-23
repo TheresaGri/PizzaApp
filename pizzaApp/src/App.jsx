@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import { getPizzaByNamePriceAndAllergen } from './data/data';
+import { getOrders, getPizzaByNamePriceAndAllergen } from './data/data';
 import Header from './components/Header';
 import Filter from './components/Filter';
 import BannerText from './components/BannerText';
@@ -11,6 +11,7 @@ import Popper from './components/Popper';
 import { formLabels } from './data/formLabels';
 import { maxPriceList } from './data/maxPriceList';
 import { allergensList } from './data/allergensList';
+import PasswordField from './components/PasswordField';
 import Sort from './components/Sort';
 
 function App() {
@@ -30,6 +31,13 @@ function App() {
 		city: '',
 		street: '',
 	});
+
+	const [classNameOfPasswordField, setClassNameOfPasswordField] = useState(
+		'PasswordField_displayNone'
+	);
+	const [ordersData, setOrdersData] = useState([]);
+	const [classNameOfOrders, setClassNameOfOrders] =
+		useState('Orders_displayNone');
 
 	const submitChange = (event) => {
 		setForm({
@@ -54,6 +62,14 @@ function App() {
 		}
 		loadFilteredPizzas(name, maxPrice, allergen, sort);
 	}, [name, maxPrice, allergen, sort]);
+
+	useEffect(() => {
+		async function loadOrders() {
+			let data = await getOrders();
+			setOrdersData(data);
+		}
+		loadOrders();
+	}, []);
 
 	function filterPizzaID(orders, id, value) {
 		for (let i = 0; i < orders.length; i++) {
@@ -194,10 +210,6 @@ function App() {
 				{' '}
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
-					<Sort
-						onSortName={() => setSort('name')}
-						onSortPrice={() => setSort('price')}
-					></Sort>
 					<Filter
 						value={name}
 						placeholer={'Search pizza by name'}
@@ -214,6 +226,10 @@ function App() {
 						onChange={filterPizzasByAllergen}
 					></Select>
 				</div>
+				<Sort
+					onSortName={() => setSort('name')}
+					onSortPrice={() => setSort('price')}
+				></Sort>
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
 						<div className='pizza-entry' key={pizza.id}>
@@ -270,6 +286,34 @@ function App() {
 						<div id='order-total'>
 							<span>Total: </span>
 							<span>€{orderTotal}.00</span>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div className='ordersForOwner'>
+						<Button
+							onClick={() =>
+								setClassNameOfPasswordField('.PasswordField_displayBlock')
+							}
+						>
+							owner
+						</Button>
+						<PasswordField
+							className={classNameOfPasswordField}
+							pressEnter={(event) => {
+								if (event.key === 'Enter' && event.target.value === 'hello') {
+									setClassNameOfOrders('Orders_displayBlock');
+								}
+							}}
+						></PasswordField>
+						<div className={classNameOfOrders}>
+							{ordersData.map((order) => (
+								<li>
+									{order.id}
+									{order.customer.name}
+									{order.completed}
+								</li>
+							))}
 						</div>
 					</div>
 				</div>
