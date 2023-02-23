@@ -98,30 +98,5 @@
       }
     },
     "completed": false
-  },
-  {
-    "id": 5,
-    "pizzas": [
-      {
-        "id": 3,
-        "amount": 1
-      }
-    ],
-    "date": {
-      "year": 2023,
-      "month": 1,
-      "day": 1,
-      "hour": 16,
-      "minute": 55
-    },
-    "customer": {
-      "name": "Test McTest",
-      "email": "Test@Testexample.com",
-      "address": {
-        "city": "vienna",
-        "street": "dritte gasse 9"
-      }
-    },
-    "completed": false
   }
 ]
