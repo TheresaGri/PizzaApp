@@ -11,6 +11,7 @@ import Popper from './components/Popper';
 import { formLabels } from './data/formLabels';
 import { maxPriceList } from './data/maxPriceList';
 import { allergensList } from './data/allergensList';
+import Sorting from './components/Sort';
 
 function App() {
 	const refMenu = useRef(null);
@@ -22,6 +23,7 @@ function App() {
 	const [orders, setOrders] = useState([]);
 	const [orderTotal, setOrderTotal] = useState(0);
 	const [orderAmount, setOrderAmount] = useState(0);
+	const [sort, setSort] = useState('');
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
@@ -41,12 +43,17 @@ function App() {
 	}
 
 	useEffect(() => {
-		async function loadFilteredPizzas(name, maxPrice, allergen) {
-			let data = await getPizzaByNamePriceAndAllergen(name, maxPrice, allergen);
+		async function loadFilteredPizzas(name, maxPrice, allergen, sort) {
+			let data = await getPizzaByNamePriceAndAllergen(
+				name,
+				maxPrice,
+				allergen,
+				sort
+			);
 			setFilteredPizza(data);
 		}
-		loadFilteredPizzas(name, maxPrice, allergen);
-	}, [name, maxPrice, allergen]);
+		loadFilteredPizzas(name, maxPrice, allergen, sort);
+	}, [name, maxPrice, allergen, sort]);
 
 	function filterPizzaID(orders, id, value) {
 		for (let i = 0; i < orders.length; i++) {
@@ -203,6 +210,10 @@ function App() {
 						onChange={filterPizzasByAllergen}
 					></Select>
 				</div>
+				<Sorting
+					onSortName={() => setSort('name')}
+					onSortPrice={() => setSort('price')}
+				></Sorting>
 				<div id='pizza-list'>
 					{filteredPizza.map((pizza) => (
 						<div className='pizza-entry' key={pizza.id}>
@@ -221,33 +232,31 @@ function App() {
 					))}
 				</div>
 			</div>
-			<div id='order-checkout'>
-				<form id='form' onSubmit={handleSubmit}>
-					{formLabels.map((item) => (
-						<LabelAndInput
-							key={item}
-							label={item}
-							id={item}
-							value={form.item}
-							handleChange={submitChange}
-						></LabelAndInput>
-					))}
-					<button type='submit' id='submitButton'>
-						Submit
-					</button>
-				</form>
-				<div id='active-order'>
-					<h1>Order:</h1>
-					<ul>
-						{combineOrderAmount.map((order) =>
-							order.amount > 0 ? (
-								<li key={order.name}>
-									{order.name}: {order.amount}
-								</li>
-							) : null
-						)}
-					</ul>
-				</div>
+			<form id='form' onSubmit={handleSubmit}>
+				{formLabels.map((item) => (
+					<LabelAndInput
+						key={item}
+						label={item}
+						id={item}
+						value={form.item}
+						handleChange={submitChange}
+					></LabelAndInput>
+				))}
+				<button type='submit' id='submitButton'>
+					Submit
+				</button>
+			</form>
+			<div id='active-order'>
+				<h1>Order:</h1>
+				<ul>
+					{combineOrderAmount.map((order) =>
+						order.amount > 0 ? (
+							<li key={order.name}>
+								{order.name}: {order.amount}
+							</li>
+						) : null
+					)}
+				</ul>
 			</div>
 		</div>
 	);
