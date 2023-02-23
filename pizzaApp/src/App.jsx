@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import "./App.css";
-import { getPizzaByNamePriceAndAllergen } from "./data/data";
-import Header from "./components/Header";
-import Filter from "./components/Filter";
-import BannerText from "./components/BannerText";
-import Select from "./components/Select";
-import Button from "./components/Button";
-import LabelAndInput from "./components/LabelAndInput";
-import Popper from "./components/Popper";
-import { formLabels } from "./data/formLabels";
-import { maxPriceList } from "./data/maxPriceList";
-import { allergensList } from "./data/allergensList";
-import Sort from "./components/Sort";
+import { useEffect, useRef, useState } from 'react';
+import './App.css';
+import { getOrders, getPizzaByNamePriceAndAllergen } from './data/data';
+import Header from './components/Header';
+import Filter from './components/Filter';
+import BannerText from './components/BannerText';
+import Select from './components/Select';
+import Button from './components/Button';
+import LabelAndInput from './components/LabelAndInput';
+import Popper from './components/Popper';
+import { formLabels } from './data/formLabels';
+import { maxPriceList } from './data/maxPriceList';
+import { allergensList } from './data/allergensList';
+import Sort from './components/Sort';
 
 function App() {
 	const refMenu = useRef(null);
@@ -30,7 +30,7 @@ function App() {
 		city: '',
 		street: '',
 	});
-  
+
 	const submitChange = (event) => {
 		setForm({
 			...form,
@@ -55,15 +55,23 @@ function App() {
 		loadFilteredPizzas(name, maxPrice, allergen, sort);
 	}, [name, maxPrice, allergen, sort]);
 
-  function filterPizzaID(orders, id, value) {
-    for (let i = 0; i < orders.length; i++) {
-      if (orders[i][id] === value) {
-        orders.splice(i, 1);
-        return orders;
-      }
-    }
-    return orders;
-  }
+	useEffect(() => {
+		async function loadOrders() {
+			let data = await getOrders();
+			setOrdersData(data);
+		}
+		loadOrders();
+	}, []);
+
+	function filterPizzaID(orders, id, value) {
+		for (let i = 0; i < orders.length; i++) {
+			if (orders[i][id] === value) {
+				orders.splice(i, 1);
+				return orders;
+			}
+		}
+		return orders;
+	}
 
 	function findPizza(array, key, value) {
 		for (let i = 0; i < array.length; i++) {
@@ -150,118 +158,132 @@ function App() {
 		});
 	};
 
-  return (
-    <div className="homepage">
-      <div id="banner" ref={refHome}>
-        <Header
-          value={orderAmount}
-          onclick={() =>
-            refMenu.current?.scrollIntoView({ behavior: "smooth" })
-          }
-          onPress={() =>
-            refHome.current?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          <Popper>
-            <div id="active-order">
-              <h1 id="order-title">Your order</h1>
-              <hr id="order-line"></hr>
-              <div id="order-list">
-                {combineOrderAmount.map((order) =>
-                  order.amount > 0 ? (
-                    <div className="order-item" key={order.name}>
-                      <div className="item-name">{order.name}</div>
-                      <div className="item-price">
-                        €{order.price * order.amount}.00
-                      </div>
-                      <span className="item-amount">
-                        Amount: {order.amount}
-                      </span>
-                    </div>
-                  ) : null
-                )}
-              </div>
-              <div id="order-total">
-                <span>Total: </span>
-                <span>€{orderTotal}.00</span>
-              </div>
-            </div>
-          </Popper>
-        </Header>
-        <BannerText></BannerText>
-      </div>
-      <div id="menu" ref={refMenu}>
-        {" "}
-        <h1 id="menu-title">Menu</h1>
-        <div id="filter-input">
-          <Filter
-            value={name}
-            placeholer={"Search pizza by name"}
-            onChange={(event) => setName(event.target.value)}
-          ></Filter>
-          <Select
-            array={maxPriceList}
-            select={maxPrice}
-            onChange={(event) => setMaxPrice(event.target.value)}
-          ></Select>
-          <Select
-            array={allergensList}
-            select={allergen}
-            onChange={filterPizzasByAllergen}
-          ></Select>
-        </div>
-        <Sort
-          onSortName={() => setSort("name")}
-          onSortPrice={() => setSort("price")}
-        ></Sort>
-        <div id="pizza-list">
-          {filteredPizza.map((pizza) => (
-            <div className="pizza-entry" key={pizza.id}>
-              <div className="pizza-info">
-                <div className="pizza-name">{pizza.name}</div>
-                <div className="pizza-ingredients">
-                  {pizza.ingredients.join(", ")}
-                </div>
-              </div>
-              <div className="pizza-price">€{pizza.price}.00</div>
-              <div className="order-buttons">
-                <Button onClick={() => addOrder(pizza)}>+</Button>
-                <Button onClick={() => deleteOrder(pizza)}>🗑</Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div id="order-checkout">
-        <form id="form" onSubmit={handleSubmit}>
-          {formLabels.map((item) => (
-            <LabelAndInput
-              key={item}
-              label={item}
-              id={item}
-              value={form.item}
-              handleChange={submitChange}
-            ></LabelAndInput>
-          ))}
-          <button type="submit" id="submitButton">
-            Submit
-          </button>
-        </form>
-        <div id="active-order">
-          <h1>Order:</h1>
-          <ul>
-            {combineOrderAmount.map((order) =>
-              order.amount > 0 ? (
-                <li key={order.name}>
-                  {order.name}: {order.amount}
-                </li>
-              ) : null
-            )}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className='homepage'>
+			<div id='banner' ref={refHome}>
+				<Header
+					value={orderAmount}
+					onclick={() =>
+						refMenu.current?.scrollIntoView({ behavior: 'smooth' })
+					}
+					onPress={() =>
+						refHome.current?.scrollIntoView({ behavior: 'smooth' })
+					}
+				>
+					<Popper>
+						<div id='active-order'>
+							<h1 id='order-title'>Your order</h1>
+							<hr id='order-line'></hr>
+							<div id='order-list'>
+								{combineOrderAmount.map((order) =>
+									order.amount > 0 ? (
+										<div className='order-item' key={order.name}>
+											<div className='item-name'>{order.name}</div>
+											<div className='item-price'>
+												€{order.price * order.amount}.00
+											</div>
+											<span className='item-amount'>
+												Amount: {order.amount}
+											</span>
+										</div>
+									) : null
+								)}
+							</div>
+							<div id='order-total'>
+								<span>Total: </span>
+								<span>€{orderTotal}.00</span>
+							</div>
+						</div>
+					</Popper>
+				</Header>
+				<BannerText></BannerText>
+			</div>
+			<div id='menu' ref={refMenu}>
+				{' '}
+				<h1 id='menu-title'>Menu</h1>
+				<div id='filter-input'>
+					<Filter
+						value={name}
+						placeholer={'Search pizza by name'}
+						onChange={(event) => setName(event.target.value)}
+					></Filter>
+					<Select
+						array={maxPriceList}
+						select={maxPrice}
+						onChange={(event) => setMaxPrice(event.target.value)}
+					></Select>
+					<Select
+						array={allergensList}
+						select={allergen}
+						onChange={filterPizzasByAllergen}
+					></Select>
+					<Sort
+						onSortName={() => setSort('name')}
+						onSortPrice={() => setSort('price')}
+					></Sort>
+				</div>
+				<div id='pizza-list'>
+					{filteredPizza.map((pizza) => (
+						<div className='pizza-entry' key={pizza.id}>
+							<div className='pizza-info'>
+								<div className='pizza-name'>{pizza.name}</div>
+								<div className='pizza-ingredients'>
+									{pizza.ingredients.join(', ')}
+								</div>
+							</div>
+							<div className='pizza-price'>€{pizza.price}.00</div>
+							<div className='order-buttons'>
+								<Button onClick={() => addOrder(pizza)}>+</Button>
+								<Button onClick={() => deleteOrder(pizza)}>🗑</Button>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+			<div id='checkout'>
+				<h1 id='checkout-title'>Order Checkout</h1>
+				<div id='checkout-container'>
+					{' '}
+					<form id='delivery-form' onSubmit={handleSubmit}>
+						<h2>Delivery Details</h2>
+
+						{formLabels.map((item) => (
+							<LabelAndInput
+								key={item}
+								label={item}
+								id={item}
+								value={form.item}
+								handleChange={submitChange}
+							></LabelAndInput>
+						))}
+						<button type='submit' id='submitButton'>
+							Submit
+						</button>
+					</form>
+					<div id='checkout-order'>
+						<h2 id='checkout-order-title'>Order:</h2>
+						<div>
+							{combineOrderAmount.map((order) =>
+								order.amount > 0 ? (
+									<div className='order-item' key={order.name}>
+										<div className='item-name'>{order.name}</div>
+										<div className='item-price'>
+											€{order.price * order.amount}.00
+										</div>
+										<span className='item-amount'>Amount: {order.amount}</span>
+									</div>
+								) : null
+							)}
+						</div>
+						<div id='order-total'>
+							<span>Total: </span>
+							<span>€{orderTotal}.00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;
