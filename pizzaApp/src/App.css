@@ -106,6 +106,7 @@
 .order-buttons {
 	display: flex;
 	justify-content: space-around;
+	
 }
 
 .order-buttons > * {
@@ -116,6 +117,7 @@
 	font-size: 20px;
 	font-weight: bolder;
 	background: transparent;
+	color: white;
 }
 
 #order-title {
