@@ -5,7 +5,7 @@
 .homepage {
 	display: flex;
 	width: 100vw;
-	height: 200vh;
+	height: 300vh;
 	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
@@ -189,5 +189,5 @@
 }
 
 #order-checkout {
-	background: black;
+	height: 100vh;
 }
