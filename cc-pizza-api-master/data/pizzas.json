@@ -113,5 +113,19 @@
       "A",
       "G"
     ]
+  },
+  {
+    "name": "capri",
+    "allergens": [
+      "N",
+      "F",
+      "P"
+    ],
+    "ingredients": [
+      "tuna",
+      "shrimp",
+      "capers"
+    ],
+    "id": 8
   }
 ]
