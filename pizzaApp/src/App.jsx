@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { getOrders, getPizzaByNamePriceAndAllergen } from "./data/data";
+import { getPizzaByNamePriceAndAllergen } from "./data/data";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import BannerText from "./components/BannerText";
@@ -11,8 +11,10 @@ import Popper from "./components/Popper";
 import { formLabels } from "./data/formLabels";
 import { maxPriceList } from "./data/maxPriceList";
 import { allergensList } from "./data/allergensList";
-import PasswordField from "./components/PasswordField";
 import Sort from "./components/Sort";
+import PizzaList from "./components/PizzaList";
+import ActiveOrder from "./components/ActiveOrder";
+import CheckoutOrder from "./components/CheckoutOrder";
 
 function App() {
   const refMenu = useRef(null);
@@ -31,13 +33,6 @@ function App() {
     city: "",
     street: "",
   });
-
-  const [classNameOfPasswordField, setClassNameOfPasswordField] = useState(
-    "PasswordField_displayNone"
-  );
-  const [ordersData, setOrdersData] = useState([]);
-  const [classNameOfOrders, setClassNameOfOrders] =
-    useState("Orders_displayNone");
 
   const submitChange = (event) => {
     setForm({
@@ -62,14 +57,6 @@ function App() {
     }
     loadFilteredPizzas(name, maxPrice, allergen, sort);
   }, [name, maxPrice, allergen, sort]);
-
-  useEffect(() => {
-    async function loadOrders() {
-      let data = await getOrders();
-      setOrdersData(data);
-    }
-    loadOrders();
-  }, []);
 
   function filterPizzaID(orders, id, value) {
     for (let i = 0; i < orders.length; i++) {
@@ -152,7 +139,7 @@ function App() {
       customer: {
         name: form.name,
         email: form.email,
-        adress: {
+        address: {
           city: form.city,
           street: form.street,
         },
@@ -179,29 +166,10 @@ function App() {
           }
         >
           <Popper>
-            <div id="active-order">
-              <h1 id="order-title">Your order</h1>
-              <hr id="order-line"></hr>
-              <div id="order-list">
-                {combineOrderAmount.map((order) =>
-                  order.amount > 0 ? (
-                    <div className="order-item" key={order.name}>
-                      <div className="item-name">{order.name}</div>
-                      <div className="item-price">
-                        €{order.price * order.amount}.00
-                      </div>
-                      <span className="item-amount">
-                        Amount: {order.amount}
-                      </span>
-                    </div>
-                  ) : null
-                )}
-              </div>
-              <div id="order-total">
-                <span>Total: </span>
-                <span>€{orderTotal}.00</span>
-              </div>
-            </div>
+            <ActiveOrder
+              array={combineOrderAmount}
+              total={orderTotal}
+            ></ActiveOrder>
           </Popper>
         </Header>
         <BannerText></BannerText>
@@ -225,11 +193,11 @@ function App() {
             select={allergen}
             onChange={filterPizzasByAllergen}
           ></Select>
+          <Sort
+            onSortName={() => setSort("name")}
+            onSortPrice={() => setSort("price")}
+          ></Sort>
         </div>
-        <Sort
-          onSortName={() => setSort("name")}
-          onSortPrice={() => setSort("price")}
-        ></Sort>
         <div id="pizza-list">
           {filteredPizza.map((pizza) => (
             <div className="pizza-entry" key={pizza.id}>
@@ -248,63 +216,29 @@ function App() {
           ))}
         </div>
       </div>
-      <div id='order-checkout'>
-				<form id='form' onSubmit={handleSubmit}>
-					{formLabels.map((item) => (
-						<LabelAndInput
-							key={item}
-							label={item}
-							id={item}
-							value={form.item}
-							handleChange={submitChange}
-						></LabelAndInput>
-					))}
-					<button type='submit' id='submitButton'>
-						Submit
-					</button>
-				</form>
-				<div id='active-order'>
-					<h1>Order:</h1>
-					<ul>
-						{combineOrderAmount.map((order) =>
-							order.amount > 0 ? (
-								<li key={order.name}>
-									{order.name}: {order.amount}
-								</li>
-							) : null
-						)}
-					</ul>
-				</div>
-        <div>
-          <div className="ordersForOwner">
-            <Button
-              onClick={() =>
-                setClassNameOfPasswordField(".PasswordField_displayBlock")
-              }
-            >
-              owner
-            </Button>
-            <PasswordField
-              className={classNameOfPasswordField}
-              pressEnter={(event) => {
-                if (event.key === "Enter" && event.target.value === "hello") {
-                  setClassNameOfOrders("Orders_displayBlock");
-                }
-              }}
-            ></PasswordField>
-            <div className={classNameOfOrders}>
-              {ordersData.map((order) => (
-                <li>
-                  {order.id}
-                  {order.customer.name}
-                  {order.completed}
-                </li>
-              ))}
-            </div>
-          </div>
+      <div id="checkout">
+        <h1 id="checkout-title">Order Checkout</h1>
+        <div id="checkout-container">
+          {" "}
+          <form id="delivery-form" onSubmit={handleSubmit}>
+            <h2>Delivery Details</h2>
+
+            {formLabels.map((item) => (
+              <LabelAndInput
+                key={item}
+                label={item}
+                id={item}
+                value={form.item}
+                handleChange={submitChange}
+              ></LabelAndInput>
+            ))}
+            <button type="submit" id="submitButton">
+              Submit
+            </button>
+          </form>
+          <CheckoutOrder array = {combineOrderAmount} total = {orderTotal}></CheckoutOrder>
         </div>
-      
-    </div>
+      </div>
     </div>
   );
 }

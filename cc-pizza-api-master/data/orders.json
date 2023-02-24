@@ -129,7 +129,7 @@
     "customer": {
       "name": "Theresa",
       "email": "T.gr@gmx.at",
-      "adress": {
+      "address": {
         "city": "Vienna",
         "street": "hello"
       }

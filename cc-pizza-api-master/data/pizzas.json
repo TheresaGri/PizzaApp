@@ -2,30 +2,59 @@
   {
     "id": 1,
     "name": "Margherita",
-    "ingredients": ["tomato sauce", "cheese", "oregano"],
+    "ingredients": [
+      "tomato sauce",
+      "cheese",
+      "oregano"
+    ],
     "price": 9,
-    "allergens": ["A", "G"]
+    "allergens": [
+      "A",
+      "G"
+    ]
   },
   {
     "id": 2,
     "name": "Salami",
-    "ingredients": ["tomato sauce", "cheese", "oregano", "salami"],
+    "ingredients": [
+      "tomato sauce",
+      "cheese",
+      "oregano",
+      "salami"
+    ],
     "price": 10,
-    "allergens": ["A", "G"]
+    "allergens": [
+      "A",
+      "G"
+    ]
   },
   {
     "id": 3,
     "name": "Marinara",
-    "ingredients": ["tomato sauce", "oregano", "garlic"],
+    "ingredients": [
+      "tomato sauce",
+      "oregano",
+      "garlic"
+    ],
     "price": 8,
-    "allergens": ["A"]
+    "allergens": [
+      "A"
+    ]
   },
   {
     "id": 4,
     "name": "Funghi",
-    "ingredients": ["tomato sauce", "cheese", "oregano", "mushrooms"],
+    "ingredients": [
+      "tomato sauce",
+      "cheese",
+      "oregano",
+      "mushrooms"
+    ],
     "price": 9,
-    "allergens": ["A", "G"]
+    "allergens": [
+      "A",
+      "G"
+    ]
   },
   {
     "id": 5,
@@ -41,7 +70,13 @@
       "garlic"
     ],
     "price": 16,
-    "allergens": ["A", "B", "D", "G", "R"]
+    "allergens": [
+      "A",
+      "B",
+      "D",
+      "G",
+      "R"
+    ]
   },
   {
     "id": 6,
@@ -57,13 +92,40 @@
       "hot pepperoni"
     ],
     "price": 11,
-    "allergens": ["A", "D", "G", "O"]
+    "allergens": [
+      "A",
+      "D",
+      "G",
+      "O"
+    ]
   },
   {
     "id": 7,
     "name": "Cardinale",
-    "ingredients": ["tomato sauce", "cheese", "oregano", "ham"],
+    "ingredients": [
+      "tomato sauce",
+      "cheese",
+      "oregano",
+      "ham"
+    ],
     "price": 10,
-    "allergens": ["A", "G"]
+    "allergens": [
+      "A",
+      "G"
+    ]
+  },
+  {
+    "name": "capri",
+    "allergens": [
+      "N",
+      "F",
+      "P"
+    ],
+    "ingredients": [
+      "tuna",
+      "shrimp",
+      "capers"
+    ],
+    "id": 8
   }
 ]
