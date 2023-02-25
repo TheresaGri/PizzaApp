@@ -50,16 +50,12 @@
 }
 
 #filter-input {
-	width: 100%;
+	width: 85%;
 	gap: 1rem;
 	display: flex;
 	justify-content: center;
-	align-items: baseline;
-	height: 5%;
-}
-
-#filter-input > * {
-	height: 20px;
+	align-items: center;
+	height: 20%;
 }
 
 #pizza-list {

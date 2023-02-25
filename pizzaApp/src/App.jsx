@@ -12,7 +12,6 @@ import { formLabels } from './data/formLabels';
 import { maxPriceList } from './data/maxPriceList';
 import { allergensList } from './data/allergensList';
 import Sort from './components/Sort';
-import PizzaList from './components/PizzaList';
 import ActiveOrder from './components/ActiveOrder';
 import CheckoutOrder from './components/CheckoutOrder';
 
@@ -179,16 +178,19 @@ function App() {
 				<h1 id='menu-title'>Menu</h1>
 				<div id='filter-input'>
 					<Filter
+						label='search by name'
 						value={name}
 						placeholer={'Search pizza by name'}
 						onChange={(event) => setName(event.target.value)}
 					></Filter>
 					<Select
+						label={'filter by price'}
 						array={maxPriceList}
 						select={maxPrice}
 						onChange={(event) => setMaxPrice(event.target.value)}
 					></Select>
 					<Select
+						label={'filter by allergy'}
 						array={allergensList}
 						select={allergen}
 						onChange={filterPizzasByAllergen}

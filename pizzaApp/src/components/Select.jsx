@@ -2,7 +2,8 @@ import './Select.css';
 
 export default function Select(props) {
 	return (
-		<>
+		<div id='select'>
+			<label id='select-label'>{props.label}</label>
 			<select
 				className='filter-selections'
 				value={props.select}
@@ -14,6 +15,6 @@ export default function Select(props) {
 					</option>
 				))}
 			</select>
-		</>
+		</div>
 	);
 }

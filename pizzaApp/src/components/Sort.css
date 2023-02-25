@@ -1,8 +1,7 @@
 .sort-bar {
-	height: 5%;
+	height: 50%;
 	display: flex;
-	flex-wrap: wrap;
-	padding: 1rem;
 	gap: 1rem;
+	width: 30%;
+	margin-top: 2.5rem;
 }
-
