@@ -47,6 +47,7 @@
 	margin-bottom: 0;
 	width: 100vw;
 	text-align: center;
+	color: white;
 }
 
 #filter-input {
@@ -86,12 +87,14 @@
 	width: 40%;
 	text-align: center;
 	font-size: 1.5rem;
+	color: white;
 }
 
 .pizza-ingredients {
 	font-size: 0.6rem;
 	text-align: left;
 	width: 100%;
+	color: white;
 }
 
 .pizza-name {
@@ -163,6 +166,7 @@
 	width: 100%;
 	text-align: center;
 	height: 10%;
+	color: white;
 }
 
 #checkout-container {
@@ -178,4 +182,12 @@
 #delivery-form {
 	width: 70%;
 	margin-left: 1rem;
+}
+
+#delivery-title {
+	color: white;
+}
+
+.labelColor {
+	color: white;
 }

@@ -84,7 +84,7 @@ function App() {
 
   const createNewPizza = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3000/api/pizzas", {
+    fetch("https://young-berry-chiller.glitch.me/api/pizzas", {
       method: "POST",
       body: JSON.stringify(newPizza),
       headers: { "Content-Type": "application/json" },
@@ -105,7 +105,7 @@ function App() {
   };
 
   async function handleCompletedChange(orderId, completed) {
-    await fetch(`http://localhost:3000/api/orders/${orderId}`, {
+    await fetch(`https://young-berry-chiller.glitch.me/api/orders/${orderId}`, {
       method: "PATCH",
       body: JSON.stringify({completed: completed}),
       headers: { "Content-Type": "application/json" },
