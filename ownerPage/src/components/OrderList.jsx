@@ -2,19 +2,16 @@ import React, { useState } from "react";
 
 export default function OrdersList(props) {
   const [showCompleted, setShowCompleted] = useState(null);
-  const { orders } = props;
-
+  const { orders, onCompletedChange } = props;
   const completedOrders = orders.filter((order) => order.completed);
   const incompleteOrders = orders.filter((order) => !order.completed);
   const allOrders = [...incompleteOrders, ...completedOrders];
-
   const ordersToDisplay =
     showCompleted === true
       ? completedOrders
       : showCompleted === false
       ? incompleteOrders
       : allOrders;
-
   return (
     <div>
       <div>
@@ -32,6 +29,16 @@ export default function OrdersList(props) {
           <p>Status: {order.completed ? "Completed" : "Incomplete"}</p>
           <p>Customer name: {order.customer.name}</p>
           <p>Customer email: {order.customer.email}</p>
+          {!order.completed && (
+            <label>
+              Completed:
+              <input
+                type="checkbox"
+                checked={order.completed}
+                onChange={() => onCompletedChange(order.id)}
+              />
+            </label>
+          )}
         </div>
       ))}
     </div>
