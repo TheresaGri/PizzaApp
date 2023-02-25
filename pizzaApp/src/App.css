@@ -67,6 +67,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	padding: 1rem;
+	color: white;
 }
 
 .pizza-entry {
@@ -127,6 +128,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: white;
 }
 
 #order-list {
@@ -160,6 +162,7 @@
 	align-items: center;
 	flex-wrap: wrap;
 	align-content: flex-start;
+	color: white;
 }
 
 #checkout-title {
@@ -184,10 +187,6 @@
 	margin-left: 1rem;
 }
 
-#delivery-title {
-	color: white;
-}
-
-.labelColor {
-	color: white;
+input[type='text'] {
+	background-color: #595959;
 }

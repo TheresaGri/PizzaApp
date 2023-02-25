@@ -64,4 +64,5 @@
 #orders-in-checkout > * {
 	max-height: 6%;
 	font-size: 0.4rem;
+	color: white;
 }
