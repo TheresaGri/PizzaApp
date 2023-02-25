@@ -1,5 +1,5 @@
 #checkout-order {
-	width: 30%;
+	width: 50%;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: space-between;
@@ -13,42 +13,52 @@
 }
 
 .order-item {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 1.2rem;
 }
 
 .item-amount {
-  display: flex;
+	display: flex;
 }
 
-
 #order-total {
-  width: 100%;
-  height: 10%;
-  font-size: 1.5rem;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
+	width: 100%;
+	height: 10%;
+	font-size: 1.5rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
 }
 
 .item-name,
 .item-price {
-  width: 50%;
-  display: flex;
+	display: flex;
 }
 
 .item-price {
-  justify-content: end;
+	justify-content: end;
+	width: 30%;
+	align-items: center;
 }
 
 .item-amount {
-  width: 100%;
-  justify-content: end;
+	width: 100%;
+	justify-content: end;
 }
 
 .item-name {
-  font-size: 1rem;
+	font-size: 1rem;
+	width: 70%;
+}
+
+#orders-in-checkout {
+	height: 60%;
+}
+
+#orders-in-checkout > * {
+	max-height: 6%;
+	font-size: 0.4rem;
 }
