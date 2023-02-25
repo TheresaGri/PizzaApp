@@ -7,7 +7,7 @@ import { getOrders } from "../../pizzaApp/src/data/data";
 import Selection from "./components/Selection";
 import { getAllergens } from "./data/data";
 import OrdersList from "./components/OrderList";
-import orders from "../../cc-pizza-api-master/data/orders.json"
+
 function App() {
   const [classNameOfPasswordField, setClassNameOfPasswordField] = useState(
     "PasswordField_displayNone"
@@ -84,6 +84,12 @@ function App() {
 
   const createNewPizza = (event) => {
     event.preventDefault();
+    fetch("http://localhost:3000/api/pizzas", {
+      method: "POST",
+      body: JSON.stringify(newPizza),
+      headers: { "Content-Type": "application/json" },
+    });
+
     chosenAllergensArray.splice(0, 1);
     ChosenIngredientArray.splice(0, 1);
     let uniqueAllergensList = [...new Set(chosenAllergensArray)];
@@ -96,13 +102,23 @@ function App() {
       price: parseInt(formOfPizza.price)
       
     };
+  };
 
-    fetch("http://localhost:3000/api/pizzas", {
-      method: "POST",
-      body: JSON.stringify(newPizza),
+  async function handleCompletedChange(orderId, completed) {
+    await fetch(`http://localhost:3000/api/orders/${orderId}`, {
+      method: "PATCH",
+      body: JSON.stringify({completed: completed}),
       headers: { "Content-Type": "application/json" },
     });
-  };
+    const updatedOrders = ordersData.map((order) => {
+      if (order.id === orderId) {
+        return { ...order, completed: true };
+      } else {
+        return order;
+      }
+    });
+    setOrdersData(updatedOrders)
+  }
 
   return (
     <div className="App">
@@ -113,7 +129,7 @@ function App() {
               setClassNameOfPasswordField(".PasswordField_displayBlock")
             }
           >
-            owner
+            owner sign in
           </Button>
           <PasswordField
             className={classNameOfPasswordField}
@@ -166,7 +182,10 @@ function App() {
             <button type="submit" id="addPizzaButton">
               Add Pizza
             </button>
-            <OrdersList orders={orders}></OrdersList>
+            <OrdersList
+              orders={ordersData}
+              onCompletedChange={handleCompletedChange}
+            ></OrdersList>
           </form>
         </div>
       </div>
