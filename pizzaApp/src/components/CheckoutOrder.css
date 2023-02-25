@@ -1,5 +1,5 @@
 #checkout-order {
-	width: 30%;
+	width: 50%;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: space-between;
@@ -14,32 +14,30 @@
 }
 
 .order-item {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 1.2rem;
 }
 
 .item-amount {
-  display: flex;
+	display: flex;
 }
 
-
 #order-total {
-  width: 100%;
-  height: 10%;
-  font-size: 1.5rem;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
+	width: 100%;
+	height: 10%;
+	font-size: 1.5rem;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
   color: white;
 }
 
 .item-name,
 .item-price {
-  width: 50%;
-  display: flex;
+	display: flex;
 }
 
 .item-price {
@@ -48,12 +46,22 @@
 }
 
 .item-amount {
-  width: 100%;
-  justify-content: end;
+	width: 100%;
+	justify-content: end;
   color: white;
 }
 
 .item-name {
   font-size: 1rem;
   color: white;
+	width: 70%;
+}
+
+#orders-in-checkout {
+	height: 60%;
+}
+
+#orders-in-checkout > * {
+	max-height: 6%;
+	font-size: 0.4rem;
 }
