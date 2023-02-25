@@ -145,7 +145,7 @@ function App() {
 			},
 		};
 
-		fetch('http://localhost:3000/api/orders', {
+		fetch('https://young-berry-chiller.glitch.me/api/orders', {
 			method: 'POST',
 			body: JSON.stringify(dataOfOrder),
 			headers: { 'Content-Type': 'application/json' },
