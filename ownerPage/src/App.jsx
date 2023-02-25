@@ -93,6 +93,8 @@ function App() {
       name: formOfPizza.name,
       allergens: uniqueAllergensList,
       ingredients: uniqueIngredientsList,
+      price: parseInt(formOfPizza.price)
+      
     };
 
     fetch("http://localhost:3000/api/pizzas", {
@@ -128,9 +130,8 @@ function App() {
                   <div>Name: {order.customer.name}</div>
                   <div>
                     <div>City: {order.customer.address.city}</div>
-                   <div>Street: {order.customer.address.street}</div>
+                    <div>Street: {order.customer.address.street}</div>
                   </div>
-
                 </li>
               ))}
             </ol>

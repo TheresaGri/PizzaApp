@@ -115,17 +115,18 @@
     ]
   },
   {
-    "name": "capri",
+    "name": "Capri",
     "allergens": [
-      "N",
-      "F",
-      "P"
+      "G",
+      "E",
+      "N"
     ],
     "ingredients": [
-      "tuna",
+      "ham",
       "shrimp",
-      "capers"
+      "salami"
     ],
+    "price": 10,
     "id": 8
   }
 ]
