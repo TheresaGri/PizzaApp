@@ -4,14 +4,19 @@ export async function getPizzaByNamePriceAndAllergen(
 	allergen,
 	sort
 ) {
-	const url = `https://young-berry-chiller.glitch.me/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}&sort-asc=${sort}`;
-	const res = await fetch(url);
-	const data = await res.json();
-	return data;
+	const url = `http://localhost:4000/api/pizzas?max-price=${maxPrice}&name=${name}&avoid-allergen-by-name=${allergen}&sort-asc=${sort}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 export async function getOrders() {
-	const url = 'https://young-berry-chiller.glitch.me/api/orders';
+	const url = 'http://localhost:4000/api/orders';
 	const res = await fetch(url);
 	const data = await res.json();
 	return data;

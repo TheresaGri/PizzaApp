@@ -118,7 +118,7 @@ function App() {
 		return acc;
 	}, []);
 
-	const handleSubmit = (event) => {
+	async function handleSubmit(event) {
 		event.preventDefault();
 		const date = new Date();
 		let orderedPizzasByIdAndAmount = combineOrderAmount.map((pizza) => {
@@ -145,12 +145,13 @@ function App() {
 			},
 		};
 
-		fetch('https://young-berry-chiller.glitch.me/api/orders', {
+		fetch('http://localhost:4000/api/orders', {
 			method: 'POST',
 			body: JSON.stringify(dataOfOrder),
 			headers: { 'Content-Type': 'application/json' },
 		});
 	};
+	
 
 	return (
 		<div className='homepage'>
